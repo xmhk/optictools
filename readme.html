@@ -1,9 +1,23 @@
 <h1>optictools.py</h1>
 
-<p>Rev 0 , oct 02 2013</p>
+<p>Rev 1 , oct 02 2013</p>
 
 <h3>gauss_peak_power( nurep, pmean, taufwhm)</h3>
 
 <ul>
 <li>returns the peak power of a gaussian pulse from the repetition rate <em>nurep</em>, the mean power <em>pmean</em> and the full width at half maximum <em>taufwhm</em></li>
+</ul>
+
+<h3>lamvec,Slam = optical_density_from_nu_to_lam( nuvec, Snu)</h3>
+
+<ul>
+<li>converts the spectral (e.g. power) density from frequency to wavelength representation.</li>
+<li>return the wavelength vector (<strong>not</strong> aequidistant!) and the spectral density (normalized to length)</li>
+</ul>
+
+<h3>nuvec, Snu = optical_density_from_lam_to_nu( lamvec, Slam)</h3>
+
+<ul>
+<li>converts the spectral (e.g. power) density from wavelength to frequency representation.</li>
+<li>return the frequency vector (<strong>not</strong> aequidistant!) and the spectral density (normalized to frequency)</li>
 </ul>
