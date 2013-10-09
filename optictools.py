@@ -42,9 +42,45 @@ def fwhm3(list, peakpos=-1):
 # -----------------------------------------------------------------------------
 
 
+def sechfield( p0, width, tvec,mode):
+    if mode.lower() == 'fwhm':
+        t0 = width/ 2 / np.arcsinh(1)
+    elif mode.lower() == 't0':
+        t0 = width
+    else:
+        print "sechfield error! no valid width given!!"
+        t0 = 0
+    return np.sqrt(p0) * 1/np.cosh( tvec / t0)
+
+def gaussfieldA( p0,width, tvec,mode):
+    if mode.lower() == 'fwhm':
+        t0 = width / 2 / np.sqrt(np.log(2))
+    elif mode.lower() == 't0':
+        t0 = width
+    else:
+        print "gaussfieldA error! no valid width given!!"
+        t0 = 0
+    return np.sqrt(p0) * np.exp( -0.5* (tvec/t0)**2)
+
+def gaussfieldB( p0,width, tvec,mode):
+    if mode.lower() == 'fwhm':
+        t0 = width / 2 / np.sqrt(np.log(2)/2)
+    elif mode.lower() == 't0':
+        t0 = width
+    else:
+        print "gaussfieldB error! no valid width given!!"
+        t0 = 0
+
+    return np.sqrt(p0) * np.exp( - (tvec/t0)**2)
+
+
 
 def gauss_peak_power( nurep, pmean, taufwhm):
     t0 = taufwhm / np.sqrt(2 * np.log(2))
+    return pmean / ( nurep * t0 * np.sqrt( np.pi/2)) 
+
+def sech_peak_power( nurep, pmean, taufwhm):
+    t0 = taufwhm / 2 / np.arcsinh(1)
     return pmean / ( nurep * t0 * np.sqrt( np.pi/2)) 
 
 
