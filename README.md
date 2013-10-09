@@ -6,6 +6,10 @@ Rev 3 , oct 09 2013
 * **om0** is the reference frequency
 * **betas** has to be in the form [beta0, beta1, beta2, beta3, ...]
 
+###fwhm3(list, peakpos=-1):
+* get the full width at half maximum of a strutured list
+* returns the fwhm of the global maximum when no peakpos is given
+
 ###gauss\_peak\_power( nurep, pmean, taufwhm)
 * returns the peak power of a gaussian pulse from the repetition rate *nurep*, the mean power *pmean* and the full width at half maximum *taufwhm*
 

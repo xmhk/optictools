@@ -9,6 +9,40 @@ def beta2_curve(om, om0, betas):
         b2k = b2k + betas[i]/factorial(i-2) * dom**(i-2)
     return b2k
 
+
+
+#full width at half maximum with linear interpolation
+def fwhm3(list, peakpos=-1):
+  if peakpos== -1: #no peakpos given -> take maximum
+    peak = np.max(list)
+    peakpos = np.min( np.nonzero( list==peak  )  )
+
+  peakvalue = list[peakpos]
+  phalf = peakvalue / 2.0
+
+  # go left and right, starting from peakpos
+  ind1 = peakpos
+  ind2 = peakpos   
+
+  while ind1>2 and list[ind1]>phalf:
+    ind1=ind1-1
+  while ind2<len(list)-1 and list[ind2]>phalf:
+    ind2=ind2+1
+  
+  #ind1 and 2 are now just below phalf
+  grad1 = list[ind1+1]-list[ind1]
+  grad2 = list[ind2]-list[ind2-1]
+  #calculate the linear interpolations
+  p1interp= ind1 + (phalf -list[ind1])/grad1
+  p2interp= ind2 + (phalf -list[ind2])/grad2
+  #calculate the width
+  width = p2interp-p1interp
+  return width
+
+# -----------------------------------------------------------------------------
+
+
+
 def gauss_peak_power( nurep, pmean, taufwhm):
     t0 = taufwhm / np.sqrt(2 * np.log(2))
     return pmean / ( nurep * t0 * np.sqrt( np.pi/2)) 
