@@ -1,6 +1,14 @@
 <h1>optictools.py</h1>
 
-<p>Rev 1 , oct 02 2013</p>
+<p>Rev 3 , oct 09 2013</p>
+
+<h3>beta2_curve(om, om0, betas)</h3>
+
+<ul>
+<li>returns the group-velocity dispersion curve for a given omega vector <strong>om</strong></li>
+<li><strong>om0</strong> is the reference frequency</li>
+<li><strong>betas</strong> has to be in the form [beta0, beta1, beta2, beta3, ...]</li>
+</ul>
 
 <h3>gauss_peak_power( nurep, pmean, taufwhm)</h3>
 
@@ -13,6 +21,7 @@
 <ul>
 <li>converts the spectral (e.g. power) density from frequency to wavelength representation.</li>
 <li>return the wavelength vector (<strong>not</strong> aequidistant!) and the spectral density (normalized to length)</li>
+<li>lamvec-Slam pairs are already sorted by wavelength (ascending)</li>
 </ul>
 
 <h3>nuvec, Snu = optical_density_from_lam_to_nu( lamvec, Slam)</h3>
@@ -20,4 +29,5 @@
 <ul>
 <li>converts the spectral (e.g. power) density from wavelength to frequency representation.</li>
 <li>return the frequency vector (<strong>not</strong> aequidistant!) and the spectral density (normalized to frequency)</li>
+<li>nuvec-Snu pairs are already sorted by frequency (ascending)</li>
 </ul>

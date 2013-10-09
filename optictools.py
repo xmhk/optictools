@@ -1,5 +1,13 @@
 import numpy as np
+from scipy.misc import factorial
 
+def beta2_curve(om, om0, betas):
+    dom = np.array( om) -om0
+    b2k = np.zeros(len(om))
+    for i in range(2,len(betas)):
+#        print i
+        b2k = b2k + betas[i]/factorial(i-2) * dom**(i-2)
+    return b2k
 
 def gauss_peak_power( nurep, pmean, taufwhm):
     t0 = taufwhm / np.sqrt(2 * np.log(2))
