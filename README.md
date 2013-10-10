@@ -1,10 +1,13 @@
 #optictools.py
-Rev 4 , oct 09 2013
+Rev 5 , oct 10 2013
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
 * **om0** is the reference frequency
 * **betas** has to be in the form [beta0, beta1, beta2, beta3, ...]
+
+###poly2beta(p,xo)
+* returns the dispersion values b2, b3, b4, etc for a given polynom fit to a beta2 curve (around xo)
 
 ###fwhm3(list, peakpos=-1):
 * get the full width at half maximum of a strutured list
@@ -25,7 +28,7 @@ Rev 4 , oct 09 2013
 * functional form np.sqrt(p0) * np.exp( - (tvec/t0)**2)
 * **width** can be given as t0 width **mode='t0'** or as fwhm (power) width **mode="fwhm"**
 
-### sech_peak_power( nurep, pmean, taufwhm):
+### sech\_peak\_power( nurep, pmean, taufwhm):
 * returns the peak power of a sech**2 pulse from the repetition rate *nurep*, the mean power *pmean* and the full width at half maximum *taufwhm*
 
 
