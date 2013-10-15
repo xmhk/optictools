@@ -9,6 +9,13 @@ def beta2_curve(om, om0, betas):
         b2k = b2k + betas[i]/factorial(i-2) * dom**(i-2)
     return b2k
 
+def beta0_curve(omvec, om0, betas):
+    bc = np.zeros(len(omvec))
+    for i in range(len(betas)):
+        bc = bc + betas[i]/factorial(i) * (omvec-om0)**i
+    return bc
+
+
 def poly2beta(p,xo):
     betas = [0,0]
     reducedpoly=p

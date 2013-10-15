@@ -1,10 +1,16 @@
 #optictools.py
-Rev 5 , oct 10 2013
+Rev 6 , oct 15 2013
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
 * **om0** is the reference frequency
 * **betas** has to be in the form [beta0, beta1, beta2, beta3, ...]
+
+### beta0\_curve(omvec, om0, betas)
+* returns the dispersion curve (beta(om)) for a given omega vector **om**
+* **om0** is the reference frequency
+* **betas** has to be in the form [beta0, beta1, beta2, beta3, ...]
+
 
 ###poly2beta(p,xo)
 * returns the dispersion values b2, b3, b4, etc for a given polynom fit to a beta2 curve (around xo)
