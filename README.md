@@ -6,7 +6,7 @@ Rev 6 , oct 15 2013
 * **om0** is the reference frequency
 * **betas** has to be in the form [beta0, beta1, beta2, beta3, ...]
 
-### beta0\_curve(omvec, om0, betas)
+### beta0\_curve(om, om0, betas)
 * returns the dispersion curve (beta(om)) for a given omega vector **om**
 * **om0** is the reference frequency
 * **betas** has to be in the form [beta0, beta1, beta2, beta3, ...]
