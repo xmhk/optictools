@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.misc import factorial
+from scipy.interpolate import interp1d
 
 def beta2_curve(om, om0, betas):
     dom = np.array( om) -om0
@@ -15,6 +16,12 @@ def beta0_curve(omvec, om0, betas):
         bc = bc + betas[i]/factorial(i) * (omvec-om0)**i
     return bc
 
+def beta0_curve_from_b2data( omvec, b2data, om0):
+    dom = omvec[2]-omvec[1]
+    b = np.cumsum(np.cumsum(b2data) ) * dom**2
+    bk = interp1d( omvec, b)
+    bb = b - bk(om0)
+    return bb
 
 def poly2beta(p,xo):
     betas = [0,0]

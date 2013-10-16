@@ -1,6 +1,6 @@
 <h1>optictools.py</h1>
 
-<p>Rev 3 , oct 09 2013</p>
+<p>Rev 7 , oct 16 2013</p>
 
 <h3>beta2_curve(om, om0, betas)</h3>
 
@@ -10,9 +10,68 @@
 <li><strong>betas</strong> has to be in the form [beta0, beta1, beta2, beta3, ...]</li>
 </ul>
 
+<h3>beta0_curve(om, om0, betas)</h3>
+
+<ul>
+<li>returns the dispersion curve (beta(om)) for a given omega vector <strong>om</strong></li>
+<li><strong>om0</strong> is the reference frequency</li>
+<li><strong>betas</strong> has to be in the form [beta0, beta1, beta2, beta3, ...]</li>
+</ul>
+
+<h3>beta0_curve_from_b2data( omvec, b2data, om0)</h3>
+
+<ul>
+<li>integrates b2(omvec) two times for beta zero</li>
+<li>substracts the value at om0, so that beta(om0) = zero</li>
+<li>omvec has to be aequidistant</li>
+</ul>
+
+<h3>poly2beta(p,xo)</h3>
+
+<ul>
+<li>returns the dispersion values b2, b3, b4, etc for a given polynom fit to a beta2 curve (around xo)</li>
+</ul>
+
+<h3>fwhm3(list, peakpos=-1):</h3>
+
+<ul>
+<li>get the full width at half maximum of a strutured list</li>
+<li>returns the fwhm of the global maximum when no peakpos is given</li>
+</ul>
+
+<h3>sechfield( p0, width, tvec,mode)</h3>
+
+<ul>
+<li>returns the <strong>field</strong> of a sech shaped pulse np.sqrt(p0) * 1/np.cosh( tvec / t0)</li>
+<li><strong>width</strong> can be given as t0 width <strong>mode='t0'</strong> or as fwhm (power) width <strong>mode="fwhm"</strong></li>
+</ul>
+
+<h3>gaussfieldA( p0,width, tvec,mode):</h3>
+
+<ul>
+<li>returns the <strong>field</strong> of a gaussian type A (P(t0)=1/e</li>
+<li>functional form np.sqrt(p0) * np.exp( -0.5* (tvec/t0)**2)</li>
+<li><strong>width</strong> can be given as t0 width <strong>mode='t0'</strong> or as fwhm (power) width <strong>mode="fwhm"</strong></li>
+</ul>
+
+<h3>gaussfieldB( p0,width, tvec,mode):</h3>
+
+<ul>
+<li>returns the <strong>field</strong> of a gaussian type B (P(t0)=1/e**2</li>
+<li>functional form np.sqrt(p0) * np.exp( - (tvec/t0)**2)</li>
+<li><strong>width</strong> can be given as t0 width <strong>mode='t0'</strong> or as fwhm (power) width <strong>mode="fwhm"</strong></li>
+</ul>
+
+<h3>sech_peak_power( nurep, pmean, taufwhm):</h3>
+
+<ul>
+<li>returns the peak power of a sech<em>*2 pulse from the repetition rate *nurep</em>, the mean power <em>pmean</em> and the full width at half maximum <em>taufwhm</em></li>
+</ul>
+
 <h3>gauss_peak_power( nurep, pmean, taufwhm)</h3>
 
 <ul>
+<li>!!! unchecked ! </li>
 <li>returns the peak power of a gaussian pulse from the repetition rate <em>nurep</em>, the mean power <em>pmean</em> and the full width at half maximum <em>taufwhm</em></li>
 </ul>
 

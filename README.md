@@ -1,5 +1,5 @@
 #optictools.py
-Rev 6 , oct 15 2013
+Rev 7 , oct 16 2013
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
@@ -11,11 +11,15 @@ Rev 6 , oct 15 2013
 * **om0** is the reference frequency
 * **betas** has to be in the form [beta0, beta1, beta2, beta3, ...]
 
+### beta0\_curve\_from\_b2data( omvec, b2data, om0)
+* integrates b2(omvec) two times for beta zero
+* substracts the value at om0, so that beta(om0) = zero
+* omvec has to be aequidistant
 
-###poly2beta(p,xo)
+### poly2beta(p,xo)
 * returns the dispersion values b2, b3, b4, etc for a given polynom fit to a beta2 curve (around xo)
 
-###fwhm3(list, peakpos=-1):
+### fwhm3(list, peakpos=-1):
 * get the full width at half maximum of a strutured list
 * returns the fwhm of the global maximum when no peakpos is given
 
