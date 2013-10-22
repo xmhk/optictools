@@ -1,5 +1,5 @@
 #optictools.py
-Rev 7 , oct 16 2013
+Rev 8 , oct 22 2013
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
@@ -15,6 +15,9 @@ Rev 7 , oct 16 2013
 * integrates b2(omvec) two times for beta zero
 * substracts the value at om0, so that beta(om0) = zero
 * omvec has to be aequidistant
+
+### get_even_part( omvec, om0, k_curve)
+* calculate the even part of a k_curve (or any other vector) with respect to om0 (center)
 
 ### poly2beta(p,xo)
 * returns the dispersion values b2, b3, b4, etc for a given polynom fit to a beta2 curve (around xo)

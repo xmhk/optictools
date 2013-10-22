@@ -23,6 +23,20 @@ def beta0_curve_from_b2data( omvec, b2data, om0):
     bb = b - bk(om0)
     return bb
 
+
+def get_even_part( omvec, om0, k_curve):
+    f1 = interp1d( omvec, k_curve,'linear')
+    k_even = np.zeros( np.shape(omvec))
+    for i in range(len(omvec)):
+        deltao = om0-omvec[i]
+        if om0-deltao<omvec[0]:
+            k_even[i] = (k_curve[0]+k_curve[-1])/2.0
+        elif om0 + deltao > omvec[-1]:
+            k_even[i] = (k_curve[-1]+k_curve[0])/2.0
+        else:
+            k_even[i] =  ( f1( om0-deltao) + f1(om0+deltao) )/2.0
+    return k_even
+
 def poly2beta(p,xo):
     betas = [0,0]
     reducedpoly=p
