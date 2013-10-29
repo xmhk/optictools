@@ -1,5 +1,5 @@
 #optictools.py
-Rev 8 , oct 22 2013
+Rev 9 , oct 29 2013
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
@@ -16,7 +16,12 @@ Rev 8 , oct 22 2013
 * substracts the value at om0, so that beta(om0) = zero
 * omvec has to be aequidistant
 
-### get_even_part( omvec, om0, k_curve)
+### remove\_b1\_slope\_from\_betacurve( betacurve, omvec, om0, deltaom, fignr=0)
+* remove the linear slope (beta1) from a beta curve
+* removal is done via polyfit in range [om0-deltaom, om0+deltaom]
+* if optional fignr is given, a the before and after curve are plotted in figure fignr
+
+### get\_even\_part( omvec, om0, k_curve)
 * calculate the even part of a k_curve (or any other vector) with respect to om0 (center)
 
 ### poly2beta(p,xo)

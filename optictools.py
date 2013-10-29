@@ -23,6 +23,20 @@ def beta0_curve_from_b2data( omvec, b2data, om0):
     bb = b - bk(om0)
     return bb
 
+def remove_b1_slope_from_betacurve( betacurve, omvec, om0, deltaom, fignr=0):
+    pointstoconsider = np.multiply( omvec > om0-deltaom, omvec<om0+deltaom)
+    p = np.polyfit( omvec[pointstoconsider], betacurve[pointstoconsider], 1)
+    betareturn = betacurve - np.polyval(p, omvec)
+    if fignr>0:
+        plt.figure(fignr)
+        plt.plot( omvec, betacurve)
+        plt.plot( omvec, betareturn)
+        plt.xlim( [om0-1.1*deltaom, om0+1.1*deltaom])
+        plt.ylim( [ min( betacurve[pointstoconsider]),max(betacurve[pointstoconsider])])
+        plt.axvline(om0,c="#777777")
+        plt.legend(["before","after","om0"])
+    return betareturn
+
 
 def get_even_part( omvec, om0, k_curve):
     f1 = interp1d( omvec, k_curve,'linear')
