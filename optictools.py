@@ -5,12 +5,17 @@ from scipy.misc import factorial
 from scipy.interpolate import interp1d
 
 def beta2_curve(om, om0, betas):
-    dom = np.array( om) -om0
+    dom = np.array(om)-om0
     b2k = np.zeros(len(om))
     for i in range(2,len(betas)):
-#        print i
         b2k = b2k + betas[i]/factorial(i-2) * dom**(i-2)
     return b2k
+
+def convert_b2curve_to_dcurve(b2k, omvec):
+    c = 2.99792458e8
+    lams = 2 * np.pi * c / omvec
+    d = -1.0 * omvec/lams * b2k
+    return d
 
 def beta0_curve(omvec, om0, betas):
     bc = np.zeros(len(omvec))
