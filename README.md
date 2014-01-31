@@ -1,5 +1,5 @@
 #optictools.py
-Rev 11 , nov 19 2013
+Rev 12 , jan 30 2014
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
@@ -68,3 +68,8 @@ Rev 11 , nov 19 2013
 * converts the spectral (e.g. power) density from wavelength to frequency representation.
 * return the frequency vector (**not** aequidistant!) and the spectral density (normalized to frequency)
 * nuvec-Snu pairs are already sorted by frequency (ascending)
+
+
+### passnotch(vec,n1,n2,mode="pass")
+
+* a very simple notch or bandpass filter vector.

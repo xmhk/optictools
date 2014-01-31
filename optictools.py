@@ -158,3 +158,15 @@ def optical_density_from_lam_to_nu( lamvec, Slam):
 
 
 
+#
+# passnotch very simple bandpass or notch binary filters
+#
+
+def passnotch(vec,n1,n2,mode="pass"):
+    if mode == "pass":
+        return np.multiply( vec > np.min([n1,n2]), vec < np.max([n1,n2]))
+    elif mode == "notch":
+        return 1-np.multiply( vec > np.min([n1,n2]), vec < np.max([n1,n2]))
+    else:
+        print "error: mode should be 'notch' or 'pass'"
+        return None
