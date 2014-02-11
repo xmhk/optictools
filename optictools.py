@@ -170,3 +170,26 @@ def passnotch(vec,n1,n2,mode="pass"):
     else:
         print "error: mode should be 'notch' or 'pass'"
         return None
+
+
+#
+# tools for dispersion measurement
+#
+def heneint(henespur):
+    lh = len(henespur)
+    # wo unterscheiden sich die Vorzeichen von zwei aufeinanderfolgenden Punkten?
+    diffprod = np.multiply( henespur[0:lh-1],henespur[1:lh])    
+    nsfilter = diffprod<0
+    #interpoliere die Nullstelle
+    xn = np.array(np.nonzero(nsfilter))
+    yn = np.array([henespur[n] for n in xn])
+    yn1 = np.array([henespur[n+1] for n in xn])
+    xnint = np.array(-1.0*yn/(yn1-yn)+xn) #interpolierte Nullstellen
+    return xn[0],xnint[0]
+
+
+def reduziertes_interferogramm( xn, xnint, interferogrammspur ):
+    yn = interferogrammspur[xn]
+    yn1 = interferogrammspur[xn+1]
+    yint = np.multiply(  (yn1-yn), xnint-xn)+yn   
+    return np.array(yint)

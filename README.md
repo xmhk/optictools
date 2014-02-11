@@ -1,5 +1,5 @@
 #optictools.py
-Rev 12 , jan 30 2014
+Rev 13 , Feb 10 2014
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
@@ -73,3 +73,15 @@ Rev 12 , jan 30 2014
 ### passnotch(vec,n1,n2,mode="pass")
 
 * a very simple notch or bandpass filter vector.
+
+
+## tools for dispersion measurement
+### heneint(henespur)
+
+* interpolates the positions of sine-zeros
+
+* returns xn - integer  xnint - interpolated between two integers
+
+### reduziertes\_interferogramm( xn, xnint, interferogrammspur )
+
+returns yint, an array of interpolated signal values at x = xnint
