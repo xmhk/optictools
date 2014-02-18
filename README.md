@@ -85,3 +85,11 @@ Rev 13 , Feb 10 2014
 ### reduziertes\_interferogramm( xn, xnint, interferogrammspur )
 
 returns yint, an array of interpolated signal values at x = xnint
+
+
+
+#ge\_index(liste, val)
+* returns the index i of a list with list[i]>=val
+
+#le\_index(liste, val):
+* returns the index i of a list with list[i]<=val

@@ -193,3 +193,20 @@ def reduziertes_interferogramm( xn, xnint, interferogrammspur ):
     yn1 = interferogrammspur[xn+1]
     yint = np.multiply(  (yn1-yn), xnint-xn)+yn   
     return np.array(yint)
+
+
+#
+# list / array handling
+#
+
+
+def ge_index(liste, val):
+    """ greater-equal index """
+        arra = np.array(liste)        
+        return np.min( np.nonzero( arra>=val))
+
+def le_index(liste, val):
+    """ lower-equal index """
+        arra = np.array(liste)        
+        return np.max( np.nonzero( arra<=val))
+    
