@@ -202,11 +202,11 @@ def reduziertes_interferogramm( xn, xnint, interferogrammspur ):
 
 def ge_index(liste, val):
     """ greater-equal index """
-        arra = np.array(liste)        
-        return np.min( np.nonzero( arra>=val))
+    arra = np.array(liste)        
+    return np.min( np.nonzero( arra>=val))
 
 def le_index(liste, val):
     """ lower-equal index """
-        arra = np.array(liste)        
-        return np.max( np.nonzero( arra<=val))
+    arra = np.array(liste)        
+    return np.max( np.nonzero( arra<=val))
     
