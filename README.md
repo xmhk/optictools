@@ -1,5 +1,5 @@
 #optictools.py
-Rev 14 , Feb 18 2014
+Rev 15 , Feb 24 2014
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
@@ -86,16 +86,16 @@ Rev 14 , Feb 18 2014
 
 returns yint, an array of interpolated signal values at x = xnint
 
+## little helpers
 
-
-#ge\_index(liste, val)
+###ge\_index(liste, val)
 * returns the index i of a list with list[i]>=val
 
-#le\_index(liste, val):
+###le\_index(liste, val):
 * returns the index i of a list with list[i]<=val
 
 
-#db\_abs2(y):
+###db\_abs2(y):
 
 * return logarithmic absolut square of a value in Decibel 
  
