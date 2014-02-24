@@ -93,3 +93,9 @@ returns yint, an array of interpolated signal values at x = xnint
 
 #le\_index(liste, val):
 * returns the index i of a list with list[i]<=val
+
+
+#db\_abs2(y):
+
+* return logarithmic absolut square of a value in Decibel 
+ 

@@ -210,3 +210,13 @@ def le_index(liste, val):
     arra = np.array(liste)        
     return np.max( np.nonzero( arra<=val))
     
+
+#
+# little helper
+#
+
+def db_abs2(y):
+    """
+    return logarithmic absolut square of a value in Decibel 
+    """
+    return 10 * np.log10( np.abs(y)**2)
