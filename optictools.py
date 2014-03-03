@@ -67,6 +67,17 @@ def poly2beta(p,xo):
         reducedpoly = np.polyder(reducedpoly)
     return betas
 
+def poly2beta_B(p,xo):
+#    betas = [0,0]
+    betas = []
+    reducedpoly=p
+    for i in range(len(p)):
+        bvalue = np.polyval(reducedpoly,xo)
+        betas.append(bvalue)
+        reducedpoly = np.polyder(reducedpoly)
+    return betas
+
+
 #full width at half maximum with linear interpolation
 def fwhm3(list, peakpos=-1):
   if peakpos== -1: #no peakpos given -> take maximum
