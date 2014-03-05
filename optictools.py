@@ -115,7 +115,7 @@ def sechfield( p0, width, tvec,mode):
     elif mode.lower() == 't0':
         t0 = width
     else:
-        print "sechfield error! no valid width given!!"
+        print("sechfield error! no valid width given!!")
         t0 = 0
     return np.sqrt(p0) * 1/np.cosh( tvec / t0)
 
@@ -125,7 +125,7 @@ def gaussfieldA( p0,width, tvec,mode):
     elif mode.lower() == 't0':
         t0 = width
     else:
-        print "gaussfieldA error! no valid width given!!"
+        print( "gaussfieldA error! no valid width given!!")
         t0 = 0
     return np.sqrt(p0) * np.exp( -0.5* (tvec/t0)**2)
 
@@ -135,7 +135,7 @@ def gaussfieldB( p0,width, tvec,mode):
     elif mode.lower() == 't0':
         t0 = width
     else:
-        print "gaussfieldB error! no valid width given!!"
+        print( "gaussfieldB error! no valid width given!!")
         t0 = 0
 
     return np.sqrt(p0) * np.exp( - (tvec/t0)**2)
@@ -179,7 +179,7 @@ def passnotch(vec,n1,n2,mode="pass"):
     elif mode == "notch":
         return 1-np.multiply( vec > np.min([n1,n2]), vec < np.max([n1,n2]))
     else:
-        print "error: mode should be 'notch' or 'pass'"
+        print( "error: mode should be 'notch' or 'pass'")
         return None
 
 

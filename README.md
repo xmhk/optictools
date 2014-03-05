@@ -1,5 +1,5 @@
 #optictools.py
-Rev 17 , Mar 03, 2014
+Rev 18 , Mar 05, 2014
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
