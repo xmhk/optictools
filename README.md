@@ -1,5 +1,5 @@
 #optictools.py
-Rev 19, Mar 11, 2014
+Rev 20, Mar 11, 2014
 
 ## Dispersion tools
 
@@ -41,6 +41,12 @@ Rev 19, Mar 11, 2014
 * get the full width at half maximum of a strutured list
 * returns the fwhm of the global maximum when no peakpos is given
 
+
+### pyfindpeaks( environment, list , thresh)
+* find maxima (peaks) in a list. return maxima greater than thresh in an environment 
+
+### cfindpeaks(env, liste, threshval)
+* same as pyfindpeaks, uses my c-function libfindpeaks (on github)
 
 ### sechfield( p0, width, tvec,mode)
 * returns the **field** of a sech shaped pulse np.sqrt(p0) * 1/np.cosh( tvec / t0)

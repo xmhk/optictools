@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy.misc import factorial
 from scipy.interpolate import interp1d
+import ctypes
 
 def beta2_curve(om, om0, betas):
     dom = np.array(om)-om0
@@ -105,6 +106,65 @@ def fwhm3(list, peakpos=-1):
   #calculate the width
   width = p2interp-p1interp
   return width
+
+
+#-------------------------------------------------------------------------------------------
+# find maxima in a list
+def pyfindpeaks( environment, list , thresh):
+  def limitss(diff,length,pos):
+    #this prevents hitting the borders of the array
+    mi = np.max( [0, pos-diff])
+    ma = np.min( [length, pos+diff])
+    return mi,ma
+  #range left/right
+  half = int( np.floor( environment/2))
+  listlength = len(list)
+  #pre-filter the peaks above threshold
+  abovethresh = np.nonzero( list>thresh )[0]
+  i = 0
+  peakpos =np.array([],int)  
+  # circle through the candidates
+  while (i < len(abovethresh)):
+    mi,ma = limitss(half, listlength, abovethresh[i])
+    partiallist = list[mi:ma]
+    # is the list value of the actual position the maximum of the environment?
+    if list[abovethresh[i]] == max(partiallist):
+      peakpos=np.append(peakpos,abovethresh[i])
+      i = i+half-1 #skip the non-maxima
+    else:
+      i = i+1
+  return peakpos
+
+
+
+
+
+#-------------------------------------------------------------------------------------------
+# find maxima in a list (c version)
+
+def cfindpeaks(env, liste, threshval):
+    libfp = ctypes.cdll.LoadLibrary("libfindpeaks.so")
+    c_liste = (ctypes.c_double * len(liste))()
+    c_peakposes  = (ctypes.c_long * len(liste))()
+    c_listlength = ctypes.c_long()
+    c_peaknumber = ctypes.c_long()
+    c_env   = ctypes.c_long()
+    c_liste[:] = liste[:]
+    c_listlength = len(liste)
+    c_env = env
+    c_threshval = (ctypes.c_double  *1)()
+    c_threshval[0] = threshval
+    libfp.findpeaks(c_env, 
+                     c_listlength,
+                     ctypes.pointer(c_liste), 
+                     ctypes.pointer(c_peakposes),
+                     ctypes.pointer(c_peaknumber),
+                     c_threshval)
+    pindx = np.array(c_peakposes[0:c_peaknumber.value])
+    return pindx
+
+
+
 
 # -----------------------------------------------------------------------------
 
