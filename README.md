@@ -1,5 +1,7 @@
 #optictools.py
-Rev 18 , Mar 05, 2014
+Rev 19, Mar 11, 2014
+
+## Dispersion tools
 
 ###beta2\_curve(om, om0, betas)
 * returns the group-velocity dispersion curve for a given omega vector **om**
@@ -33,6 +35,8 @@ Rev 18 , Mar 05, 2014
 ### poly2beta\_B(p,xo)
 * same as poly2beta, but p are the polyfit params for a **beta0** curve (instead of beta2)
 
+## functions for generate / measure pulses
+
 ### fwhm3(list, peakpos=-1):
 * get the full width at half maximum of a strutured list
 * returns the fwhm of the global maximum when no peakpos is given
@@ -60,7 +64,7 @@ Rev 18 , Mar 05, 2014
 * !!! unchecked ! 
 * returns the peak power of a gaussian pulse from the repetition rate *nurep*, the mean power *pmean* and the full width at half maximum *taufwhm*
 
-
+## spectral conversion
 
 ### lamvec,Slam = optical\_density\_from\_nu\_to\_lam( nuvec, Snu)
 * converts the spectral (e.g. power) density from frequency to wavelength representation.
@@ -71,11 +75,6 @@ Rev 18 , Mar 05, 2014
 * converts the spectral (e.g. power) density from wavelength to frequency representation.
 * return the frequency vector (**not** aequidistant!) and the spectral density (normalized to frequency)
 * nuvec-Snu pairs are already sorted by frequency (ascending)
-
-
-### passnotch(vec,n1,n2,mode="pass")
-
-* a very simple notch or bandpass filter vector.
 
 
 ## tools for dispersion measurement
@@ -90,6 +89,12 @@ Rev 18 , Mar 05, 2014
 returns yint, an array of interpolated signal values at x = xnint
 
 ## little helpers
+
+
+### passnotch(vec,n1,n2,mode="pass")
+
+* a very simple notch or bandpass filter vector.
+
 
 ###ge\_index(liste, val)
 * returns the index i of a list with list[i]>=val
