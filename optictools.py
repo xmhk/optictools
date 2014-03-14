@@ -242,12 +242,17 @@ def cfindpeaks(env, valuelist, threshval):
     return pindx
 
 
-
-
-# -----------------------------------------------------------------------------
-
-
 def sechfield( p0, width, tvec,mode):
+    """ returns the field of a temporal sech pulse
+    
+    INPUT:
+    - p0: optical power in W
+    - width: temporal width in s
+    - tvec: time vector
+    - mode: can be either 
+            'fwhm'  (full width at half maximum of intensity)
+            or 't0' (argument of sech)    
+    """
     if mode.lower() == 'fwhm':
         t0 = width/ 2 / np.arcsinh(1)
     elif mode.lower() == 't0':
@@ -258,6 +263,18 @@ def sechfield( p0, width, tvec,mode):
     return np.sqrt(p0) * 1/np.cosh( tvec / t0)
 
 def gaussfieldA( p0,width, tvec,mode):
+    """ 
+    returns the field of a gaussian pulse (A)
+    type A: Intensity = 1/e**2 at T0
+                                                                                                                   
+    INPUT:
+    - p0: optical power in W                                                                                        
+    - width: temporal width in s                                                                                    
+    - tvec: time vector                                                                                             
+    - mode: can be either                                                                                           
+            'fwhm'  (full width at half maximum of intensity)                                                       
+            or 't0' (argument of exp)                                                                               
+    """
     if mode.lower() == 'fwhm':
         t0 = width / 2 / np.sqrt(np.log(2))
     elif mode.lower() == 't0':
@@ -268,6 +285,18 @@ def gaussfieldA( p0,width, tvec,mode):
     return np.sqrt(p0) * np.exp( -0.5* (tvec/t0)**2)
 
 def gaussfieldB( p0,width, tvec,mode):
+    """ 
+    returns the field of a gaussian pulse (B)
+    type B: Intensity = 1/e at T0
+                                                                                                                   
+    INPUT:
+    - p0: optical power in W                                                                                        
+    - width: temporal width in s                                                                                    
+    - tvec: time vector                                                                                             
+    - mode: can be either                                                                                           
+            'fwhm'  (full width at half maximum of intensity)                                                       
+            or 't0' (argument of exp)                                                                               
+    """
     if mode.lower() == 'fwhm':
         t0 = width / 2 / np.sqrt(np.log(2)/2)
     elif mode.lower() == 't0':
@@ -275,16 +304,37 @@ def gaussfieldB( p0,width, tvec,mode):
     else:
         print( "gaussfieldB error! no valid width given!!")
         t0 = 0
-
     return np.sqrt(p0) * np.exp( - (tvec/t0)**2)
 
-
-
 def gauss_peak_power( nurep, pmean, taufwhm):
+    """ 
+    calculate the peak power of gaussian pulses (A) from 
+    the repetition frequency, the mean power and the fwhm
+
+    INPUT:
+    - nurep: repetition frequency
+    - pmean: mean power
+    - taufwhm: temporal fwhm (intensity) of the pulses
+    
+    OUTPUT:
+    - peak power of the pulses
+    """
     t0 = taufwhm / np.sqrt(2 * np.log(2))
     return pmean / ( nurep * t0 * np.sqrt( np.pi/2)) 
 
 def sech_peak_power( nurep, pmean, taufwhm):
+    """ 
+    calculate the peak power of sech from 
+    the repetition frequency, the mean power and the fwhm
+
+    INPUT:
+    - nurep: repetition frequency
+    - pmean: mean power
+    - taufwhm: temporal fwhm (intensity) of the pulses
+    
+    OUTPUT:
+    - peak power of the pulses
+    """
     t0 = taufwhm / 2 / np.arcsinh(1)
     return pmean / ( nurep * t0 * np.sqrt( np.pi/2)) 
 
