@@ -129,30 +129,43 @@ def poly2beta_B(p,omega0):
     return betas
 
 
-#full width at half maximum with linear interpolation
-def fwhm3(list, peakpos=-1):
-  if peakpos== -1: #no peakpos given -> take maximum
-    peak = np.max(list)
-    peakpos = np.min( np.nonzero( list==peak  )  )
+def fwhm3(valuelist, peakpos=-1):
+  """calculates the full-width at half maximum (fwhm) of some curve.
 
-  peakvalue = list[peakpos]
+  the function will return the fwhm with sub-pixel interpolation. It will start at the maximum position and 'walk' trowards left and right until it approaches the half value.
+
+  INPUT: 
+  - valuelist: e.g. the list containing the temporal shape of a pulse 
+
+  OPTIONAL INPUT: 
+  -peakpos: position of the peak to examine (list index)
+   the global maximum will be used if omitted.
+
+   OUTPUT:
+   -fwhm (value)
+   """
+  if peakpos== -1: #no peakpos given -> take maximum
+    peak = np.max(valuelist)
+    peakpos = np.min( np.nonzero( valuelist==peak  )  )
+
+  peakvalue = valuelist[peakpos]
   phalf = peakvalue / 2.0
 
   # go left and right, starting from peakpos
   ind1 = peakpos
   ind2 = peakpos   
 
-  while ind1>2 and list[ind1]>phalf:
+  while ind1>2 and valuelist[ind1]>phalf:
     ind1=ind1-1
-  while ind2<len(list)-1 and list[ind2]>phalf:
+  while ind2<len(valuelist)-1 and valuelist[ind2]>phalf:
     ind2=ind2+1
   
   #ind1 and 2 are now just below phalf
-  grad1 = list[ind1+1]-list[ind1]
-  grad2 = list[ind2]-list[ind2-1]
+  grad1 = valuelist[ind1+1]-valuelist[ind1]
+  grad2 = valuelist[ind2]-valuelist[ind2-1]
   #calculate the linear interpolations
-  p1interp= ind1 + (phalf -list[ind1])/grad1
-  p2interp= ind2 + (phalf -list[ind2])/grad2
+  p1interp= ind1 + (phalf -valuelist[ind1])/grad1
+  p2interp= ind2 + (phalf -valuelist[ind2])/grad2
   #calculate the width
   width = p2interp-p1interp
   return width
