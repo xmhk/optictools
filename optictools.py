@@ -5,11 +5,23 @@ from scipy.misc import factorial
 from scipy.interpolate import interp1d
 import ctypes
 
-def beta2_curve(om, om0, betas):
-    dom = np.array(om)-om0
-    b2k = np.zeros(len(om))
+def beta2_curve(omega , omega0, betas):
+    """
+    calculate the group velocity curve from a beta series
+
+
+    INPUT:
+    - omegas: a vector of angular frequencies
+    - omega0: the center angular frequency
+    - betas: a list with the beta coefficients: [beta0, beta1, beta2, ...]
+
+    OUTPUT: 
+    - the beta2(omega) curve
+    """
+    domega  = np.array(omega)-omega0
+    b2k = np.zeros(len(omega))
     for i in range(2,len(betas)):
-        b2k = b2k + betas[i]/factorial(i-2) * dom**(i-2)
+        b2k = b2k + betas[i]/factorial(i-2) * domega**(i-2)
     return b2k
 
 def convert_b2curve_to_dcurve(b2k, omvec):
