@@ -56,11 +56,25 @@ def beta0_curve(omegas, omega0, betas):
         bc = bc + betas[i]/factorial(i) * (omegas-omega0)**i
     return bc
 
-def beta0_curve_from_b2data( omvec, b2data, om0):
-    dom = omvec[2]-omvec[1]
+def beta0_curve_from_b2data( omegas, b2data, omega0):
+    """
+    get the beta curve from (numerical beta data
+
+    this is done via integration
+    
+    INPUT:
+    - omegas: aequidistant(!) vector of angular frequencies
+    - b2data: beta2 data for omegas
+    - omega0: center frequency (result will be zero here)
+    
+    OUTPUT:
+    - betacurve(omegas)
+    
+    """
+    dom = omegas[2]-omegas[1]
     b = np.cumsum(np.cumsum(b2data) ) * dom**2
-    bk = interp1d( omvec, b)
-    bb = b - bk(om0)
+    bk = interp1d( omegas, b)
+    bb = b - bk(omega0)
     return bb
 
 def remove_b1_slope_from_betacurve( betacurve, omvec, om0, deltaom, fignr=0):
