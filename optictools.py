@@ -95,14 +95,12 @@ def poly2beta(p,omega0):
     convert the polynomial coefficients of a beta2(omega) fit to a beta series
     
     INPUT:
-    - p: polynomcoefficients from polyfit
+    - p: polynomcoefficients from polyfit beta2(omega)
     - omega0: center angular frequency for extension
 
     OUTPUT: 
-    -betas: a list containing [beta0, beta1, beta2, beta3, ...]
-    
+    -betas: a list containing [beta0, beta1, beta2, beta3, ...]    
     """
-
     betas = [0,0]
     reducedpoly=p
     for i in range(len(p)):
@@ -111,12 +109,21 @@ def poly2beta(p,omega0):
         reducedpoly = np.polyder(reducedpoly)
     return betas
 
-def poly2beta_B(p,xo):
-#    betas = [0,0]
+def poly2beta_B(p,omega0):
+    """
+    convert the polynomial coefficients of a beta(omega) fit to a beta series
+    
+    INPUT:
+    - p: polynomcoefficients from polyfit of beta(omega)
+    - omega0: center angular frequency for extension
+
+    OUTPUT: 
+    -betas: a list containing [beta0, beta1, beta2, beta3, ...]
+    """
     betas = []
     reducedpoly=p
     for i in range(len(p)):
-        bvalue = np.polyval(reducedpoly,xo)
+        bvalue = np.polyval(reducedpoly,omega0)
         betas.append(bvalue)
         reducedpoly = np.polyder(reducedpoly)
     return betas
