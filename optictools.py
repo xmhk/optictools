@@ -375,16 +375,21 @@ def optical_density_from_lam_to_nu( lamvec, Slam):
     Snu = Slam * c / nuvec**2
     sortindx = sorted( range(len(nuvec)), key=lambda k:nuvec[k])
     return nuvec[sortindx], Snu[sortindx]
-    
-    
-
-
-
-#
-# passnotch very simple bandpass or notch binary filters
-#
 
 def passnotch(vec,n1,n2,mode="pass"):
+    """
+    a very simple bandpass or notch binary filter
+    
+    INPUT:
+    - vec: a monotonously growing vector e.g of frequency, time
+    - n1,n2: border frequency of notch/pass
+    - mode: either
+          'notch': create a filter with zeros between n1 and n2, ones otherwise
+       or 'pass': create a filter with ones between n1 and n2, zeros otherwise
+     
+    OUTPUT:
+    - a vector with the same length as vec. Filled with zeros and ones    
+    """
     if mode == "pass":
         return np.multiply( vec > np.min([n1,n2]), vec < np.max([n1,n2]))
     elif mode == "notch":
@@ -416,32 +421,54 @@ def reduziertes_interferogramm( xn, xnint, interferogrammspur ):
     yint = np.multiply(  (yn1-yn), xnint-xn)+yn   
     return np.array(yint)
 
+def ge_index(valuelist, val):
+    """ greater-equal index 
 
-#
-# list / array handling
-#
-
-
-def ge_index(liste, val):
-    """ greater-equal index """
-    arra = np.array(liste)        
+    returns the index of the first value in valuelist that is greater or equal val
+    INPUT:
+    - valuelist 
+    - val
+    
+    OUTPUT:
+    - index
+    """
+    arra = np.array(valuelist)        
     return np.min( np.nonzero( arra>=val))
 
-def le_index(liste, val):
-    """ lower-equal index """
-    arra = np.array(liste)        
-    return np.max( np.nonzero( arra<=val))
-    
+def le_index(valuelist, val):
+    """ lower-equal index
 
-#
-# little helper
-#
+    returns the index of the first value in valuelist that is smaller or equal val
+    INPUT:
+    - valuelist 
+    - val
+    
+    OUTPUT:
+    - index
+    """
+    arra = np.array(valuelist)        
+    return np.max( np.nonzero( arra<=val))
 
 def db_abs2(y):
     """
-    return logarithmic absolut square of a value in Decibel 
+    return the decadic logarithm of the absolut square of a value (Decibel)
+    
+    INPUT:
+    -y: value
+    
+    OUTPUT:
+    -dby = 10 * np.log10( np.abs(y)**2)
     """
     return 10 * np.log10( np.abs(y)**2)
 
 def db_abs(y):
+    """
+    return the decadic logarithm of the abs of a value (Decibel)
+    
+    INPUT:
+    -y: value
+    
+    OUTPUT:
+    -dby = 10 * np.log10( np.abs(y))
+    """
     return 10 * np.log10( np.abs(y))
