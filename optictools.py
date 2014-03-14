@@ -24,10 +24,20 @@ def beta2_curve(omega , omega0, betas):
         b2k = b2k + betas[i]/factorial(i-2) * domega**(i-2)
     return b2k
 
-def convert_b2curve_to_dcurve(b2k, omvec):
+def convert_b2curve_to_dcurve(b2vals, omegas):
+    """
+    convert a GVD curve in the frequency representation (beta2) to a GVD curve (D) in the wavelength representation
+
+    INPUT:
+    -b2vals: (array of beta2 values)
+    -omegas: angular frequency vector
+    
+    OUTPUT:
+    -D:      GVD in wavelength representation
+    """    
     c = 2.99792458e8
-    lams = 2 * np.pi * c / omvec
-    d = -1.0 * omvec/lams * b2k
+    lams = 2 * np.pi * c / omegas
+    d = -1.0 * omegas/lams * b2vals
     return d
 
 def beta0_curve(omvec, om0, betas):
