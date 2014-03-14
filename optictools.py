@@ -77,21 +77,6 @@ def beta0_curve_from_b2data( omegas, b2data, omega0):
     bb = b - bk(omega0)
     return bb
 
-def remove_b1_slope_from_betacurve( betacurve, omvec, om0, deltaom, fignr=0):
-    pointstoconsider = np.multiply( omvec > om0-deltaom, omvec<om0+deltaom)
-    p = np.polyfit( omvec[pointstoconsider], betacurve[pointstoconsider], 1)
-    betareturn = betacurve - np.polyval(p, omvec)
-    if fignr>0:
-        plt.figure(fignr)
-        plt.plot( omvec, betacurve)
-        plt.plot( omvec, betareturn)
-        plt.xlim( [om0-1.1*deltaom, om0+1.1*deltaom])
-        plt.ylim( [ min( betacurve[pointstoconsider]),max(betacurve[pointstoconsider])])
-        plt.axvline(om0,c="#777777")
-        plt.legend(["before","after","om0"])
-    return betareturn
-
-
 def get_even_part( omvec, om0, k_curve):
     f1 = interp1d( omvec, k_curve,'linear')
     k_even = np.zeros( np.shape(omvec))
@@ -105,11 +90,23 @@ def get_even_part( omvec, om0, k_curve):
             k_even[i] =  ( f1( om0-deltao) + f1(om0+deltao) )/2.0
     return k_even
 
-def poly2beta(p,xo):
+def poly2beta(p,omega0):
+    """
+    convert the polynomial coefficients of a beta2(omega) fit to a beta series
+    
+    INPUT:
+    - p: polynomcoefficients from polyfit
+    - omega0: center angular frequency for extension
+
+    OUTPUT: 
+    -betas: a list containing [beta0, beta1, beta2, beta3, ...]
+    
+    """
+
     betas = [0,0]
     reducedpoly=p
     for i in range(len(p)):
-        bvalue = np.polyval(reducedpoly,xo)
+        bvalue = np.polyval(reducedpoly,omega0)
         betas.append(bvalue)
         reducedpoly = np.polyder(reducedpoly)
     return betas
