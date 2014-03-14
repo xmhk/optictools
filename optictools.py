@@ -130,73 +130,82 @@ def poly2beta_B(p,omega0):
 
 
 def fwhm3(valuelist, peakpos=-1):
-  """calculates the full-width at half maximum (fwhm) of some curve.
+    """calculates the full width at half maximum (fwhm) of some curve.
 
-  the function will return the fwhm with sub-pixel interpolation. It will start at the maximum position and 'walk' trowards left and right until it approaches the half value.
+    the function will return the fwhm with sub-pixel interpolation. It will start at the maximum position and 'walk' left and right until it approaches the half values.
 
-  INPUT: 
-  - valuelist: e.g. the list containing the temporal shape of a pulse 
+    INPUT: 
+    - valuelist: e.g. the list containing the temporal shape of a pulse 
 
-  OPTIONAL INPUT: 
-  -peakpos: position of the peak to examine (list index)
-   the global maximum will be used if omitted.
+    OPTIONAL INPUT: 
+    -peakpos: position of the peak to examine (list index)
+    the global maximum will be used if omitted.
 
-   OUTPUT:
-   -fwhm (value)
-   """
-  if peakpos== -1: #no peakpos given -> take maximum
-    peak = np.max(valuelist)
-    peakpos = np.min( np.nonzero( valuelist==peak  )  )
+    OUTPUT:
+    -fwhm (value)
+    """
+    if peakpos== -1: #no peakpos given -> take maximum
+        peak = np.max(valuelist)
+        peakpos = np.min( np.nonzero( valuelist==peak  )  )
 
-  peakvalue = valuelist[peakpos]
-  phalf = peakvalue / 2.0
+    peakvalue = valuelist[peakpos]
+    phalf = peakvalue / 2.0
 
-  # go left and right, starting from peakpos
-  ind1 = peakpos
-  ind2 = peakpos   
+    # go left and right, starting from peakpos
+    ind1 = peakpos
+    ind2 = peakpos   
 
-  while ind1>2 and valuelist[ind1]>phalf:
-    ind1=ind1-1
-  while ind2<len(valuelist)-1 and valuelist[ind2]>phalf:
-    ind2=ind2+1
-  
-  #ind1 and 2 are now just below phalf
-  grad1 = valuelist[ind1+1]-valuelist[ind1]
-  grad2 = valuelist[ind2]-valuelist[ind2-1]
-  #calculate the linear interpolations
-  p1interp= ind1 + (phalf -valuelist[ind1])/grad1
-  p2interp= ind2 + (phalf -valuelist[ind2])/grad2
-  #calculate the width
-  width = p2interp-p1interp
-  return width
+    while ind1>2 and valuelist[ind1]>phalf:
+        ind1=ind1-1
+    while ind2<len(valuelist)-1 and valuelist[ind2]>phalf:
+        ind2=ind2+1  
+    #ind1 and 2 are now just below phalf
+    grad1 = valuelist[ind1+1]-valuelist[ind1]
+    grad2 = valuelist[ind2]-valuelist[ind2-1]
+    #calculate the linear interpolations
+    p1interp= ind1 + (phalf -valuelist[ind1])/grad1
+    p2interp= ind2 + (phalf -valuelist[ind2])/grad2
+    #calculate the width
+    width = p2interp-p1interp
+    return width
 
 
-#-------------------------------------------------------------------------------------------
-# find maxima in a list
-def pyfindpeaks( environment, list , thresh):
-  def limitss(diff,length,pos):
+
+def pyfindpeaks( environment, valuelist , thresh):
+    """
+    find peak positions in a list of values
+
+    INPUT:
+    - environment: (INT) a maxima has to be the local maximum in this invironment of points
+    - valelist: list or array of points to find the maxima in
+    - thresh: a maximum has to be larger than this value
+
+    OUTPUT:
+    - listindices: positions of the peaks found
+    """
+    def limitss(diff,length,pos):
     #this prevents hitting the borders of the array
-    mi = np.max( [0, pos-diff])
-    ma = np.min( [length, pos+diff])
-    return mi,ma
-  #range left/right
-  half = int( np.floor( environment/2))
-  listlength = len(list)
-  #pre-filter the peaks above threshold
-  abovethresh = np.nonzero( list>thresh )[0]
-  i = 0
-  peakpos =np.array([],int)  
-  # circle through the candidates
-  while (i < len(abovethresh)):
-    mi,ma = limitss(half, listlength, abovethresh[i])
-    partiallist = list[mi:ma]
-    # is the list value of the actual position the maximum of the environment?
-    if list[abovethresh[i]] == max(partiallist):
-      peakpos=np.append(peakpos,abovethresh[i])
-      i = i+half-1 #skip the non-maxima
-    else:
-      i = i+1
-  return peakpos
+        mi = np.max( [0, pos-diff])
+        ma = np.min( [length, pos+diff])
+        return mi,ma
+    #range left/right
+    half = int( np.floor( environment/2))
+    valuelistlength = len(valuelist)
+    #pre-filter the peaks above threshold
+    abovethresh = np.nonzero( valuelist>thresh )[0]
+    i = 0
+    peakpos =np.array([],int)  
+    # circle through the candidates
+    while (i < len(abovethresh)):
+        mi,ma = limitss(half, valuelistlength, abovethresh[i])
+        partialvaluelist = valuelist[mi:ma]
+    # is the valuelist value of the actual position the maximum of the environment?
+        if valuelist[abovethresh[i]] == max(partialvaluelist):
+            peakpos=np.append(peakpos,abovethresh[i])
+            i = i+half-1 #skip the non-maxima
+        else:
+            i = i+1
+    return peakpos
 
 
 
