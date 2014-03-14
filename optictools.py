@@ -340,6 +340,17 @@ def sech_peak_power( nurep, pmean, taufwhm):
 
 
 def optical_density_from_nu_to_lam( nuvec, Snu):
+    """
+    convert a spectral density from frequency to wavelength representation
+
+    INPUT:
+    - nuvec: vector of optical frequency
+    - Snu: spectral density Snu(nuvec)
+
+    OUTPUT:
+    - lamvec: vector of wavelengths
+    - Slam: spectral density Slam(lamvec)
+    """
     c = 2.99792458e8
     lamvec = c / nuvec
     sortindx = sorted( range(len(nuvec)), key=lambda k:lamvec[k])
@@ -347,6 +358,18 @@ def optical_density_from_nu_to_lam( nuvec, Snu):
     return lamvec[sortindx], Slam[sortindx]
 
 def optical_density_from_lam_to_nu( lamvec, Slam):
+    """
+    convert a spectral density from wavlength to frequency representation
+
+    INPUT:
+    - lamvec: vector of wavelengths
+    - Slam: spectral density Slam(lamvec)
+
+    OUTPUT:
+
+    - nuvec: vector of optical frequency
+    - Snu: spectral density Snu(nuvec)
+    """
     c = 2.99792458e8
     nuvec = c / lamvec
     Snu = Slam * c / nuvec**2
