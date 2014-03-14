@@ -177,7 +177,7 @@ def pyfindpeaks( environment, valuelist , thresh):
 
     INPUT:
     - environment: (INT) a maxima has to be the local maximum in this invironment of points
-    - valelist: list or array of points to find the maxima in
+    - valuelist: list or array of points to find the maxima in
     - thresh: a maximum has to be larger than this value
 
     OUTPUT:
@@ -207,28 +207,34 @@ def pyfindpeaks( environment, valuelist , thresh):
             i = i+1
     return peakpos
 
+def cfindpeaks(env, valuelist, threshval):
+    """
+    find peaks in a list or an array of value
+    
+    this is a python wrapper for the C-lib libfindpeaks (github/xhmk)
 
+    INPUT:
+    - environment: (INT) a maxima has to be the local maximum in this invironment of points
+    - valuelist: list or array of points to find the maxima in
+    - thresh: a maximum has to be larger than this value
 
-
-
-#-------------------------------------------------------------------------------------------
-# find maxima in a list (c version)
-
-def cfindpeaks(env, liste, threshval):
+    OUTPUT:
+    - listindices: positions of the peaks found
+    """
     libfp = ctypes.cdll.LoadLibrary("libfindpeaks.so")
-    c_liste = (ctypes.c_double * len(liste))()
-    c_peakposes  = (ctypes.c_long * len(liste))()
+    c_valuelist = (ctypes.c_double * len(valuelist))()
+    c_peakposes  = (ctypes.c_long * len(valuelist))()
     c_listlength = ctypes.c_long()
     c_peaknumber = ctypes.c_long()
     c_env   = ctypes.c_long()
-    c_liste[:] = liste[:]
-    c_listlength = len(liste)
+    c_valuelist[:] = valuelist[:]
+    c_listlength = len(valuelist)
     c_env = env
     c_threshval = (ctypes.c_double  *1)()
     c_threshval[0] = threshval
     libfp.findpeaks(c_env, 
                      c_listlength,
-                     ctypes.pointer(c_liste), 
+                     ctypes.pointer(c_valuelist), 
                      ctypes.pointer(c_peakposes),
                      ctypes.pointer(c_peaknumber),
                      c_threshval)
