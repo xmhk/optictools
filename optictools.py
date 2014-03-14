@@ -9,7 +9,6 @@ def beta2_curve(omega , omega0, betas):
     """
     calculate the group velocity curve from a beta series
 
-
     INPUT:
     - omegas: a vector of angular frequencies
     - omega0: the center angular frequency
@@ -40,10 +39,21 @@ def convert_b2curve_to_dcurve(b2vals, omegas):
     d = -1.0 * omegas/lams * b2vals
     return d
 
-def beta0_curve(omvec, om0, betas):
-    bc = np.zeros(len(omvec))
+def beta0_curve(omegas, omega0, betas):
+    """
+    calculate the dispersion curve from a beta series
+
+    INPUT:
+    - omegas: a vector of angular frequencies
+    - omega0: the center angular frequency
+    - betas: a list with the beta coefficients: [beta0, beta1, beta2, ...]
+
+    OUTPUT: 
+    - the beta(omega) curve
+    """
+    bc = np.zeros(len(omegas))
     for i in range(len(betas)):
-        bc = bc + betas[i]/factorial(i) * (omvec-om0)**i
+        bc = bc + betas[i]/factorial(i) * (omegas-omega0)**i
     return bc
 
 def beta0_curve_from_b2data( omvec, b2data, om0):
