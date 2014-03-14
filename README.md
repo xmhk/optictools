@@ -1,5 +1,5 @@
 #optictools.py
-Rev 20, Mar 11, 2014
+Rev 21, Mar 11, 2014
 
 ## Dispersion tools
 
