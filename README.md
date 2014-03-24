@@ -1,5 +1,5 @@
 #optictools.py
-Rev 23, Mar 24, 2014
+Rev 24, Mar 24, 2014
 
 ## Dispersion tools
 
@@ -244,6 +244,17 @@ reduce a interferogramm with interpolated reference points
         OUTPUT:
         -interpolated interferogramm
 
+###unwrap2(phase):
+unwrap a phase
+
+compared to standard unwrap, this also ensures that the first derivative
+of the phase is steady
+
+        INPUT:
+        -phase curve
+
+        OUTPUT:
+        -unwrapped phase curve
 
 ## little helpers
 
