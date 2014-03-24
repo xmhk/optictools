@@ -187,7 +187,7 @@ def pyfindpeaks( environment, valuelist , thresh):
     find peak positions in a list of values
 
     INPUT:
-    - environment: (INT) a maxima has to be the local maximum in this invironment of points
+    - environment: (INT) a maxima has to be the local maximum in this environment of points
     - valuelist: list or array of points to find the maxima in
     - thresh: a maximum has to be larger than this value
 
@@ -225,7 +225,7 @@ def cfindpeaks(env, valuelist, threshval):
     this is a python wrapper for the C-lib libfindpeaks (github/xhmk)
 
     INPUT:
-    - environment: (INT) a maxima has to be the local maximum in this invironment of points
+    - environment: (INT) a maxima has to be the local maximum in this environment of points
     - valuelist: list or array of points to find the maxima in
     - thresh: a maximum has to be larger than this value
 

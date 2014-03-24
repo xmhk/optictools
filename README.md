@@ -1,5 +1,5 @@
 #optictools.py
-Rev 22, Mar 24, 2014
+Rev 23, Mar 24, 2014
 
 ## Dispersion tools
 
@@ -109,7 +109,7 @@ it will start at the maximum position and walk left and right until it approache
 find peak positions in a list of values
         
         INPUT:
-        - environment: (INT) a maxima has to be the local maximum in this invironment of points
+        - environment: (INT) a maxima has to be the local maximum in this environment of points
         - valuelist: list or array of points to find the maxima in
         - thresh: a maximum has to be larger than this value
         
@@ -123,7 +123,7 @@ find peaks in a list or an array of value
         this is a python wrapper for the C-lib libfindpeaks (github/xhmk)
         
         INPUT:
-        - environment: (INT) a maxima has to be the local maximum in this invironment of points
+        - environment: (INT) a maxima has to be the local maximum in this environment of points
         - valuelist: list or array of points to find the maxima in
         - thresh: a maximum has to be larger than this value
         
