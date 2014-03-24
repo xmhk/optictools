@@ -434,6 +434,15 @@ def heneint(henespur):
 
 
 def reduziertes_interferogramm( xn, xnint, interferogrammspur ):
+    """
+    reduce a interferogramm with interpolated reference points
+    
+    INPUT:
+    -xn, xnint - interpolated reference points from henespur
+    -interferogrammspur: recorded white light interferogramm
+    OUTPUT:
+    -interpolated interferogramm
+    """
     yn = interferogrammspur[xn]
     yn1 = interferogrammspur[xn+1]
     yint = np.multiply(  (yn1-yn), xnint-xn)+yn   
