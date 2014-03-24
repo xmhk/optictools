@@ -411,7 +411,17 @@ def passnotch(vec,n1,n2,mode="pass"):
 # tools for dispersion measurement
 #
 def heneint(henespur):
+    """
+    helper for fourier transform white light interferometry
+    
+    INPUT: 
+    - henespur - voltage from reference interferometer
+    OUTPUT:
+    - xn - integer positions of zeros
+    - xnint - (float) interpolated positions of zeros
+    """
     lh = len(henespur)
+    henespur = henespur - np.mean(henespur)
     # wo unterscheiden sich die Vorzeichen von zwei aufeinanderfolgenden Punkten?
     diffprod = np.multiply( henespur[0:lh-1],henespur[1:lh])    
     nsfilter = diffprod<0
