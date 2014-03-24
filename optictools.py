@@ -78,6 +78,14 @@ def beta0_curve_from_b2data( omegas, b2data, omega0):
     return bb
 
 def get_even_part( omvec, om0, k_curve):
+    """
+    extract the even part of a (dispersion) curve
+
+    INPUT:
+    -omvec - angular frequency vector
+    -om0   - center frequency (reference)
+    -k_curve - dispersion curve
+    """
     f1 = interp1d( omvec, k_curve,'linear')
     k_even = np.zeros( np.shape(omvec))
     for i in range(len(omvec)):
