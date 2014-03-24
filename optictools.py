@@ -85,6 +85,9 @@ def get_even_part( omvec, om0, k_curve):
     -omvec - angular frequency vector
     -om0   - center frequency (reference)
     -k_curve - dispersion curve
+
+    OUTPUT:
+    -even part of the dispersion curve
     """
     f1 = interp1d( omvec, k_curve,'linear')
     k_even = np.zeros( np.shape(omvec))
@@ -259,7 +262,10 @@ def sechfield( p0, width, tvec,mode):
     - tvec: time vector
     - mode: can be either 
             'fwhm'  (full width at half maximum of intensity)
-            or 't0' (argument of sech)    
+            or 't0' (argument of sech)  
+
+    OUTPUT:
+    - temporal sech field
     """
     if mode.lower() == 'fwhm':
         t0 = width/ 2 / np.arcsinh(1)
@@ -281,7 +287,9 @@ def gaussfieldA( p0,width, tvec,mode):
     - tvec: time vector                                                                                             
     - mode: can be either                                                                                           
             'fwhm'  (full width at half maximum of intensity)                                                       
-            or 't0' (argument of exp)                                                                               
+            or 't0' (argument of exp)          
+    OUTPUT:
+    - temporal gaussian field (A)                                                                     
     """
     if mode.lower() == 'fwhm':
         t0 = width / 2 / np.sqrt(np.log(2))
@@ -303,7 +311,9 @@ def gaussfieldB( p0,width, tvec,mode):
     - tvec: time vector                                                                                             
     - mode: can be either                                                                                           
             'fwhm'  (full width at half maximum of intensity)                                                       
-            or 't0' (argument of exp)                                                                               
+            or 't0' (argument of exp)                                                                             
+    OUTPUT:
+    - temporal gaussian field (B)  
     """
     if mode.lower() == 'fwhm':
         t0 = width / 2 / np.sqrt(np.log(2)/2)
@@ -374,7 +384,6 @@ def optical_density_from_lam_to_nu( lamvec, Slam):
     - Slam: spectral density Slam(lamvec)
 
     OUTPUT:
-
     - nuvec: vector of optical frequency
     - Snu: spectral density Snu(nuvec)
     """
