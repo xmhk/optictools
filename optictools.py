@@ -419,6 +419,20 @@ def passnotch(vec,n1,n2,mode="pass"):
 #
 # tools for dispersion measurement
 #
+
+## NOT DOCUMENTED YET:
+def spuridentifikation(bilderpfad, rohdatei,rohdatenpfad):
+    data = np.loadtxt(rohdatenpfad+"/"+rohdatei,delimiter=',')
+    spaltenanz= np.shape(data)[1]
+    plt.figure(1)
+    for i in range(spaltenanz):
+        plt.subplot(spaltenanz,1,i+1)
+        plt.plot(data[:,i])
+        plt.legend(['spalte %d'%i])
+    plt.savefig(bilderpfad + "/" + "spuridentifikation_%s.png"%(rohdatei))
+    plt.close(1)
+
+
 def heneint(henespur):
     """
     helper for fourier transform white light interferometry
