@@ -1,5 +1,5 @@
 #optictools.py
-Rev 24, Mar 24, 2014
+Rev 26, Mar 26, 2014
 
 ## Dispersion tools
 
@@ -223,38 +223,6 @@ convert a spectral density from wavlength to frequency representation
         - nuvec: vector of optical frequency
         - Snu: spectral density Snu(nuvec)
 
-
-## tools for dispersion measurement
-### heneint(henespur)
- helper for fourier transform white light interferometry
-        
-        INPUT: 
-        - henespur - voltage from reference interferometer
-        OUTPUT:
-        - xn - integer positions of zeros
-        - xnint - (float) interpolated positions of zeros
-
-### reduziertes\_interferogramm( xn, xnint, interferogrammspur )
-
-reduce a interferogramm with interpolated reference points
-        
-        INPUT:
-        -xn, xnint - interpolated reference points from henespur
-        -interferogrammspur: recorded white light interferogramm
-        OUTPUT:
-        -interpolated interferogramm
-
-###unwrap2(phase):
-unwrap a phase
-
-compared to standard unwrap, this also ensures that the first derivative
-of the phase is steady
-
-        INPUT:
-        -phase curve
-
-        OUTPUT:
-        -unwrapped phase curve
 
 ## little helpers
 

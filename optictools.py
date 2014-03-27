@@ -414,89 +414,9 @@ def passnotch(vec,n1,n2,mode="pass"):
     else:
         print( "error: mode should be 'notch' or 'pass'")
         return None
-
-
 #
-# tools for dispersion measurement
+# little helpers
 #
-
-## NOT DOCUMENTED YET:
-def spuridentifikation(bilderpfad, rohdatei,rohdatenpfad):
-    data = np.loadtxt(rohdatenpfad+"/"+rohdatei,delimiter=',')
-    spaltenanz= np.shape(data)[1]
-    plt.figure(1)
-    for i in range(spaltenanz):
-        plt.subplot(spaltenanz,1,i+1)
-        plt.plot(data[:,i])
-        plt.legend(['spalte %d'%i])
-    plt.savefig(bilderpfad + "/" + "spuridentifikation_%s.png"%(rohdatei))
-    plt.close(1)
-
-
-def heneint(henespur):
-    """
-    helper for fourier transform white light interferometry
-    
-    INPUT: 
-    - henespur - voltage from reference interferometer
-    OUTPUT:
-    - xn - integer positions of zeros
-    - xnint - (float) interpolated positions of zeros
-    """
-    lh = len(henespur)
-    henespur = henespur - np.mean(henespur)
-    # wo unterscheiden sich die Vorzeichen von zwei aufeinanderfolgenden Punkten?
-    diffprod = np.multiply( henespur[0:lh-1],henespur[1:lh])    
-    nsfilter = diffprod<0
-    #interpoliere die Nullstelle
-    xn = np.array(np.nonzero(nsfilter))
-    yn = np.array([henespur[n] for n in xn])
-    yn1 = np.array([henespur[n+1] for n in xn])
-    xnint = np.array(-1.0*yn/(yn1-yn)+xn) #interpolierte Nullstellen
-    return xn[0],xnint[0]
-
-
-def reduziertes_interferogramm( xn, xnint, interferogrammspur ):
-    """
-    reduce a interferogramm with interpolated reference points
-    
-    INPUT:
-    -xn, xnint - interpolated reference points from henespur
-    -interferogrammspur: recorded white light interferogramm
-    OUTPUT:
-    -interpolated interferogramm
-    """
-    yn = interferogrammspur[xn]
-    yn1 = interferogrammspur[xn+1]
-    yint = np.multiply(  (yn1-yn), xnint-xn)+yn   
-    return np.array(yint)
-
-def unwrap2(phase):
-    """
-    unwrap a phase
-
-    compared to standard unwrap, this also ensures that the first derivative
-    of the phase is steady
-
-    INPUT:
-    -phase curve
-
-    OUTPUT:
-    -unwrapped phase cure
-    """
-    p1 = np.unwrap(phase)
-    deltal=[]
-    for i in range(1,len(phase)-1):
-        delta = p1[i+1]-2*p1[i]+p1[i-1]
-        kfak = delta/( np.pi)             
-        if np.abs(kfak)>1.0:            
-            #kk = -1* np.sign(kfak)*np.floor(np.abs(kfak)+1)
-            kk=-1*np.sign(kfak)*np.ceil(np.abs(kfak))
-            p1[i+1::]=p1[i+1::]+(kk)*np.pi
-            #print t[i], delta,kfak,kk,delta+kk*np.pi
-        else:
-            kk = 0.0      
-    return p1
 
 def ge_index(valuelist, val):
     """ greater-equal index 
