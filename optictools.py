@@ -469,3 +469,36 @@ def db_abs(y):
     -dby = 10 * np.log10( np.abs(y))
     """
     return 10 * np.log10( np.abs(y))
+
+def moving_average(somearray, environment):
+    """
+    moving average
+    
+    dumb implementation (slow!)
+
+    INPUT:
+    somearray - some array
+    environment - number of points to include in the average
+
+    OUTPUT:
+    movav : array with moving average
+    movavstd : standard deviation
+
+    length of movav, movavstd is the same as the input array. 
+    the borders are filled up with the first/last calculated value
+    """
+    envhalf = int(np.floor(environment/2))    
+    movav =  np.zeros(np.shape(somearray))
+    movavstd = np.zeros(np.shape(somearray))
+    #move throught the array and calculate mean, std
+    for i in range(envhalf+1,len(somearray)-envhalf):
+        movav[i]     = np.mean( somearray[i-envhalf:i+envhalf] )
+        movavstd[i] = np.std( somearray[i-envhalf:i+envhalf])
+    #fill up the borders
+    movavstd[len(somearray)-envhalf-1:len(somearray)]=movavstd[len(somearray)-envhalf-3]
+    movavstd[0:envhalf+1]=movavstd[envhalf+2]
+
+    movav[len(somearray)-envhalf-1:len(somearray)]=movav[len(somearray)-envhalf-3]
+    movav[0:envhalf+1]=movav[envhalf+2]
+
+    return movav,movavstd
