@@ -470,6 +470,23 @@ def db_abs(y):
     """
     return 10 * np.log10( np.abs(y))
 
+def get_slice(signal, xvec, lower,upper):
+    """
+    cuts a slice from an array
+    
+    INPUT:
+    - signale
+    - xvec
+    - lower x
+    - upper x
+
+    OUTPUT:
+    - slice of input array
+    """
+    llind = ge_index(xvec, lower)
+    uuind = ge_index(xvec, upper)
+    return signal[llind:uuind]
+
 def moving_average(somearray, environment):
     """
     moving average

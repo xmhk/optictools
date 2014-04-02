@@ -1,5 +1,5 @@
 #optictools.py
-Rev 27, Mar 28, 2014
+Rev 28, Apr 01, 2014
 
 ## Dispersion tools
 
@@ -272,6 +272,29 @@ return the decadic logarithm of the absolut square of a value (Decibel)
         
         OUTPUT:
         -dby = 10 * np.log10( np.abs(y)**2)
+
+###db\_abs(y)
+return the decadic logarithm of the absolut of a value (Decibel)
+        
+        INPUT:
+        -y: value
+        
+        OUTPUT:
+        -dby = 10 * np.log10( np.abs(y) )
+
+
+
+### get\_slice(signal, xvec, lower,upper)
+    cuts a slice from an array
+    
+    INPUT:
+    - signal
+    - xvec
+    - lower x
+    - upper x
+
+    OUTPUT:
+    - slice of input array
 
 ### moving\_average(somearray, environment)
         moving average
