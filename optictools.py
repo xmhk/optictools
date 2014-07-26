@@ -55,8 +55,8 @@ def convert_dcurve_to_b2curve(dvals,omegas):
 
 
     c = 2.99792458e8
-    lams = 2 * np.pi * c / omegass
-    return -lams/omegass*dvals
+    lams = 2 * np.pi * c / omegas
+    return -lams/omegas*dvals
 
 
 
