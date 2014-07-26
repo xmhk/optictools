@@ -1,5 +1,5 @@
 #optictools.py
-Rev 28, Apr 01, 2014
+Rev 29, Jul 26, 2014
 
 ## Dispersion tools
 
@@ -23,6 +23,18 @@ Rev 28, Apr 01, 2014
         
         OUTPUT:
         -D:      GVD in wavelength representation
+
+
+### convert\_dcurve\_to\_b2curve(dvals,omegas)
+   
+    convert a GVD curve in the  wavelength representation (D) to a GVD curve (beta2) in the frequency representation
+
+    INPUT:
+    -dvals: (array of D values)
+    -omegas: angular frequency vector
+    
+    OUTPUT:
+    -beta2 :      GVD in frequency representation
 
 ### beta0\_curve(om, om0, betas)
 calculate the dispersion curve from a beta series

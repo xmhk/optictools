@@ -39,6 +39,27 @@ def convert_b2curve_to_dcurve(b2vals, omegas):
     d = -1.0 * omegas/lams * b2vals
     return d
 
+
+
+def convert_dcurve_to_b2curve(dvals,omegas):
+    """
+    convert a GVD curve in the  wavelength representation (D) to a GVD curve (beta2) in the frequency representation
+
+    INPUT:
+    -dvals: (array of D values)
+    -omegas: angular frequency vector
+    
+    OUTPUT:
+    -beta2 :      GVD in frequency representation
+    """    
+
+
+    c = 2.99792458e8
+    lams = 2 * np.pi * c / omegass
+    return -lams/omegass*dvals
+
+
+
 def beta0_curve(omegas, omega0, betas):
     """
     calculate the dispersion curve from a beta series
