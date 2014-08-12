@@ -1,5 +1,5 @@
 #optictools.py
-Rev 29, Jul 26, 2014
+Rev 30, Aug 12, 2014
 
 ## Dispersion tools
 
@@ -234,6 +234,22 @@ convert a spectral density from wavlength to frequency representation
         OUTPUT:
         - nuvec: vector of optical frequency
         - Snu: spectral density Snu(nuvec)
+
+
+### specnorm( nuv, snuv, pnorm = 1.0)
+
+ normalize spectra to have an integral power of pnorm,
+    which is 1.0 as standard
+    
+    INPUT: 
+        -nuv nu-vector (Hz)
+        -snu S(nu) unit/Hz
+        -OPTIONAL pnorm = 
+
+    OUTPUT:
+        -nunorm (interpolated to be aequidistant)
+        -Snunorm
+   
 
 
 ## little helpers

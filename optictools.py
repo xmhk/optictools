@@ -414,6 +414,33 @@ def optical_density_from_lam_to_nu( lamvec, Slam):
     sortindx = sorted( range(len(nuvec)), key=lambda k:nuvec[k])
     return nuvec[sortindx], Snu[sortindx]
 
+
+def specnorm( nuv, snuv, pnorm = 1.0):
+    """
+    normalize spectra to have an integral power of pnorm,
+    which is 1.0 as standard
+    
+    INPUT: 
+        -nuv nu-vector (Hz)
+        -snu S(nu) unit/Hz
+        -OPTIONAL pnorm = 
+
+    OUTPUT:
+        -nunorm (interpolated to be aequidistant)
+        -Snunorm
+    
+    """
+    from scipy.interpolate import interp1d
+    nu2 = np.linspace( np.min(nuv), np.max(nuv),len(nuv))
+    sf = interp1d( nuv, snuv)
+    snu2 = sf(nu2)
+    dnu = nu2[2]-nu2[1]
+    tscale = dnu *  np.trapz( np.abs(snu2))
+    snu2 = snu2/tscale * pnorm
+    return nu2, snu2
+
+
+
 def passnotch(vec,n1,n2,mode="pass"):
     """
     a very simple bandpass or notch binary filter
