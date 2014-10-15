@@ -441,6 +441,45 @@ def specnorm( nuv, snuv, pnorm = 1.0):
 
 
 
+
+def calc_g12( fieldlist, verbose=False ):
+    """
+    calculate the absolute value of the complex spectral coherence function g12
+
+    as defined in J. M. Dudley,  S. Coen: Opt. Lett. 27, 1180–1182 (2002).
+
+    INPUT:
+    - a list of fields [field1, field2, ...]
+    - [optional] verbose = True/False 
+
+    OUTPUT:
+    - a dict containing the fields:
+       - fsqmean : mean value of the intensity (|A|**2)
+       - fsqstd  : standard deviation of the intensity (|A|**2)
+       - g12 : absolute value of g12
+
+    """
+    rv = {}
+    rv['fsqmean'] = np.mean( np.abs( np.array(fieldlist))**2, axis=0)
+    rv['fsqstd'] = np.std( np.abs( np.array(fieldlist))**2, axis=0)
+    numerator = np.zeros(len(fieldlist[0]))+0.0j
+    denominator1 = np.zeros(len(fieldlist[0]))+0.0j
+    denominator2 = np.zeros(len(fieldlist[0]))+0.0j
+    pairs = 0
+    for i in range(len(fieldlist)):
+        for k in range(i+1,len(fieldlist)):
+            pairs +=1
+            if verbose==True:
+                print("i = %d   k = %d"%(i, k))
+            numerator +=  np.multiply( np.conj(fieldlist[i]), fieldlist[k])
+            denominator1 +=  np.abs(fieldlist[i])**2
+            denominator2 +=  np.abs(fieldlist[k])**2
+    numerator = numerator / pairs
+    denominator1 = denominator1 / pairs
+    denominator2 = denominator2 / pairs
+    rv['g12'] = np.abs( numerator / np.sqrt( np.multiply( denominator1, denominator2)))
+    return rv
+
 def passnotch(vec,n1,n2,mode="pass"):
     """
     a very simple bandpass or notch binary filter

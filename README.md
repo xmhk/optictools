@@ -1,5 +1,5 @@
 #optictools.py
-Rev 30, Aug 12, 2014
+Rev 31, Oct 15, 2014
 
 ## Dispersion tools
 
@@ -250,6 +250,22 @@ convert a spectral density from wavlength to frequency representation
         -nunorm (interpolated to be aequidistant)
         -Snunorm
    
+## coherence
+
+### calc_g12( fieldlist, verbose=False ) 
+calculate the absolute value of the complex spectral coherence function g12
+
+as defined in J. M. Dudley,  S. Coen: Opt. Lett. 27, 1180–1182 (2002).
+
+    INPUT:
+    - a list of fields [field1, field2, ...]
+    - [optional] verbose = True/False 
+
+    OUTPUT:
+    - a dict containing the fields:
+       - fsqmean : mean value of the intensity (|A|**2)
+       - fsqstd  : standard deviation of the intensity (|A|**2)
+       - g12 : absolute value of g12
 
 
 ## little helpers
