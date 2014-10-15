@@ -446,7 +446,7 @@ def calc_g12( fieldlist, verbose=False ):
     """
     calculate the absolute value of the complex spectral coherence function g12
 
-    as defined in J. M. Dudley,  S. Coen: Opt. Lett. 27, 1180–1182 (2002).
+    as defined in J. M. Dudley,  S. Coen: Opt. Lett 27, 1180 (2002).
 
     INPUT:
     - a list of fields [field1, field2, ...]
