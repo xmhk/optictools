@@ -390,6 +390,7 @@ def nuvec_from_tvec(tvec):
     - nuvec relative freq vector
     """
     N = len(tvec)
+    dt = tvec[2]-tvec[1]
     dnu =  1/((N)*dt)
     # range(1,N) means [1,2,...,(N-1)] !!!
     nuvec = np.array( range(-N/2,N/2))*dnu
