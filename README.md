@@ -1,5 +1,5 @@
 #optictools.py
-Rev 32, Nov 04, 2014
+Rev 33, Nov 04, 2014
 
 ## Dispersion tools
 
@@ -262,7 +262,25 @@ convert a spectral density from wavlength to frequency representation
     OUTPUT:
         -nunorm (interpolated to be aequidistant)
         -Snunorm
-   
+
+
+
+### frog\_corr(field1, field2)
+    
+    calculate the spectrogramm of two fields.
+    
+    calculated results spectrogramm that would be yielded by
+    cross-correlating the fields and than measure the fourier
+    transform.
+
+    INPUT: field1, field2
+    (SHG-FROG-trace when field1 == field2)
+
+    OUTPUT: MF,
+    with MF = | Fourier Transform ( int dt field(t) * field2(t-tau) | **2
+    (first axis-> nuvec, second axis->tau)
+    
+
 ## coherence
 
 ### calc_g12( fieldlist, verbose=False ) 

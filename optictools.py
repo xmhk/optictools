@@ -499,6 +499,50 @@ def calc_g12( fieldlist, verbose=False ):
     rv['g12'] = np.abs( numerator / np.sqrt( np.multiply( denominator1, denominator2)))
     return rv
 
+
+def frog_corr(field1, field2):
+    """
+    calculate the spectrogramm of two fields.
+    
+    calculated results spectrogramm that would be yielded by
+    cross-correlating the fields and than measure the fourier
+    transform.
+
+    INPUT: field1, field2
+    (SHG-FROG-trace when field1 == field2)
+
+    OUTPUT: MF
+    with MF = | Fourier Transform ( int dt field(t) * field2(t-tau) | **2
+    (first axis-> nuvec, second axis->tau)
+    """
+    l = len(field1)
+    if l%2!=0:
+        field1b = np.zeros(l+1)+0.0j
+        field1b[0:l]=field1[:]
+        field2b = np.zeros(l+1)+0.0j
+        field2b[0:l]=field2[:]    
+        field1=field1b
+        field2=field2b
+        
+    def shiftfield( field, shift):
+        l = len(field)
+        lh = int(l/2)
+        fieldnew = np.zeros(2*l)+0.0j
+        fieldnew[lh:lh*3]=field[0:l]
+        fieldnew = np.roll(fieldnew, shift)
+        return fieldnew[lh:lh*3]
+    
+    Mf = np.zeros([len(field1),len(field1)])+0.0j
+    lh=int(len(field1)/2)
+    for i in range(len(field1)):
+        Mf[i,:] = np.fft.fftshift(
+            np.fft.ifft(
+                np.multiply(
+                    np.conj(field1),shiftfield(field2,i-lh)
+                )))
+    return np.abs(Mf)**2
+
+
 def passnotch(vec,n1,n2,mode="pass"):
     """
     a very simple bandpass or notch binary filter
