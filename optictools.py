@@ -375,7 +375,25 @@ def sech_peak_power( nurep, pmean, taufwhm):
     - peak power of the pulses
     """
     t0 = taufwhm / 2 / np.arcsinh(1)
-    return pmean / ( nurep * t0 * np.sqrt( np.pi/2)) 
+    return pmean / ( nurep * t0 * np.sqrt( np.pi/2))
+
+
+
+def nuvec_from_tvec(tvec):
+    """ 
+    calculate the relative frequency vector 
+    for a given time vector, e.g. for fft.
+
+    INPUT:
+    - tvec time vector (aequidistant)
+    OUTPUT:
+    - nuvec relative freq vector
+    """
+    N = len(tvec)
+    dnu =  1/((N)*dt)
+    # range(1,N) means [1,2,...,(N-1)] !!!
+    nuvec = np.array( range(-N/2,N/2))*dnu
+    return nuvec
 
 
 def optical_density_from_nu_to_lam( nuvec, Snu):

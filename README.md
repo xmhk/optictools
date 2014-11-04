@@ -1,5 +1,5 @@
 #optictools.py
-Rev 31, Oct 15, 2014
+Rev 32, Nov 04, 2014
 
 ## Dispersion tools
 
@@ -213,6 +213,18 @@ calculate the peak power of gaussian pulses (A) from the repetition frequency, t
 
 ## spectral conversion
 
+### nuvec\_from\_tvec(tvec)
+ calculate the relative frequency vector 
+ for a given time vector, e.g. for fft.
+
+    INPUT:
+    - tvec time vector (aequidistant)
+    OUTPUT:
+    - nuvec relative freq vector
+ 
+
+
+
 ### lamvec,Slam = optical\_density\_from\_nu\_to\_lam( nuvec, Snu)
  convert a spectral density from frequency to wavelength representation
         
@@ -223,6 +235,7 @@ calculate the peak power of gaussian pulses (A) from the repetition frequency, t
         OUTPUT:
         - lamvec: vector of wavelengths
         - Slam: spectral density Slam(lamvec)
+
 
 ### nuvec, Snu = optical\_density\_from\_lam\_to\_nu( lamvec, Slam)
 convert a spectral density from wavlength to frequency representation
