@@ -525,6 +525,38 @@ def frog_corr(field1, field2):
     return FI / np.max(FI)
 
 
+
+def sg( xvec, mu, width, order):
+    """
+    brief version of a supergauss - function
+    INPUT:
+    -xvec time( or x-)-vector
+    -mu time offset
+    -width
+    -order
+    """
+    return np.exp( - ((xvec-mu)/width)**order)
+
+def supergauss( xvec, mu, width, order):
+    """
+    supergauss - function
+    INPUT:
+    -xvec time( or x-)-vector
+    -mu time offset
+    -width
+    -order
+    """
+    return sg( xvec, mu, width, order) 
+
+def specfilter_on_timefield( field, filt ):
+    """
+    apply a spectral filter on a timefield,
+    return the filtered timefield
+    (IFFT type)
+    """
+    return np.fft.fft( np.fft.ifft(field )* np.fft.fftshift(filt))
+
+
 def passnotch(vec,n1,n2,mode="pass"):
     """
     a very simple bandpass or notch binary filter

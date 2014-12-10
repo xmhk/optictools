@@ -302,6 +302,27 @@ as defined in J. M. Dudley,  S. Coen: Opt. Lett. 27, 1180–1182 (2002).
 ## little helpers
 
 
+
+### specfilter\_on\_timefield( field, filt )
+apply a spectral filter on a timefield, return the filtered timefield (IFFT type)
+
+
+
+### supergauss( xvec, mu, width, order)
+    supergauss - function
+    INPUT:
+        - xvec time( or x-)-vector
+    	- mu time offset
+    	- width
+	- order
+
+
+### sg( xvec, mu, width, order)
+brief version of a supergauss - function
+   
+
+ 
+
 ### passnotch(vec,n1,n2,mode="pass")
 a very simple bandpass or notch binary filter
         
