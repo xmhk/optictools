@@ -1,5 +1,5 @@
 #optictools.py
-Rev 35, Dec 10, 2014
+Rev 36, Feb 16, 2015
 
 ## Dispersion tools
 
@@ -86,16 +86,29 @@ convert the polynomial coefficients of a beta2(omega) fit to a beta series
 
 
 
-### poly2beta\_B(p,xo)
+###  beta2poly(betas)
+convert the beta  coefficients to a  polynom
+    
+	INPUT:
+	    - betas:  beta coefficients
+	OUTPUT: 
+	    -p: a polynom
 
-convert the polynomial coefficients of a beta(omega) fit to a beta series
-        
-        INPUT:
-        - p: polynomcoefficients from polyfit of beta(omega)
-        - omega0: center angular frequency for extension
-        
-        OUTPUT: 
-        -betas: a list containing [beta0, beta1, beta2, beta3, ...]
+
+
+### beta\_change\_base(betas, oldom0, newom0)
+
+convert the beta series from one center frequency to the other
+    
+    INPUT:
+    - betas:  beta coefficients
+    - oldom0: old center frequency
+    - newom0: new center frequency
+
+    OUTPUT: 
+    -betas : beta series for newom0
+                   
+    
 
 ## functions for generate / measure pulses
 

@@ -122,26 +122,26 @@ def get_even_part( omvec, om0, k_curve):
             k_even[i] =  ( f1( om0-deltao) + f1(om0+deltao) )/2.0
     return k_even
 
+#def poly2beta(p,omega0):
+#    """
+#    convert the polynomial coefficients of a beta2(omega) fit to a beta series
+#    
+#    INPUT:
+#    - p: polynomcoefficients from polyfit beta2(omega)
+#    - omega0: center angular frequency for extension
+#
+#    OUTPUT: 
+#    -betas: a list containing [beta0, beta1, beta2, beta3, ...]    
+#    """
+#    betas = [0,0]
+#    reducedpoly=p
+#    for i in range(len(p)):
+#        bvalue = np.polyval(reducedpoly,omega0)
+#        betas.append(bvalue)
+#        reducedpoly = np.polyder(reducedpoly)
+#    return betas
+
 def poly2beta(p,omega0):
-    """
-    convert the polynomial coefficients of a beta2(omega) fit to a beta series
-    
-    INPUT:
-    - p: polynomcoefficients from polyfit beta2(omega)
-    - omega0: center angular frequency for extension
-
-    OUTPUT: 
-    -betas: a list containing [beta0, beta1, beta2, beta3, ...]    
-    """
-    betas = [0,0]
-    reducedpoly=p
-    for i in range(len(p)):
-        bvalue = np.polyval(reducedpoly,omega0)
-        betas.append(bvalue)
-        reducedpoly = np.polyder(reducedpoly)
-    return betas
-
-def poly2beta_B(p,omega0):
     """
     convert the polynomial coefficients of a beta(omega) fit to a beta series
     
@@ -159,6 +159,47 @@ def poly2beta_B(p,omega0):
         betas.append(bvalue)
         reducedpoly = np.polyder(reducedpoly)
     return betas
+
+def beta2poly(betas):
+    """
+    convert the beta  coefficients to a  polynom
+    
+    INPUT:
+    - betas:  beta coefficients
+
+    OUTPUT: 
+    -p: a polynom
+    """
+    p = []
+    for i in range(len(betas),0,-1):
+        ii = i-1
+        p.append(betas[ii]/max(1,factorial(ii)))
+    return np.array( p )
+
+
+
+def beta_change_base(betas, oldom0, newom0):
+    """
+    convert the beta series from one center frequency to the other
+    
+    INPUT:
+    - betas:  beta coefficients
+    - oldom0: old center frequency
+    - newom0: new center frequency
+
+    OUTPUT: 
+    -betas : beta series for newom0
+    """
+    dom = newom0-oldom0
+    ppoly = beta2poly(betas)
+    newbetas = []
+    for i in range(len(ppoly)):
+        newbetas.append( np.polyval( ppoly, dom))
+        ppoly = np.polyder(ppoly)
+    return newbetas
+                   
+    
+
 
 
 def fwhm3(valuelist, peakpos=-1):
