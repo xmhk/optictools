@@ -171,9 +171,12 @@ def beta2poly(betas):
     -p: a polynom
     """
     p = []
+    print("-----")
     for i in range(len(betas),0,-1):
         ii = i-1
-        p.append(betas[ii]/max(1,factorial(ii)))
+        #print i, ii ,    betas[ii], factorial(ii), betas[ii]/max(1.0,factorial(ii))
+        p.append(betas[ii]/max(1.0,factorial(ii)))
+        
     return np.array( p )
 
 
@@ -193,7 +196,8 @@ def beta_change_base(betas, oldom0, newom0):
     dom = newom0-oldom0
     ppoly = beta2poly(betas)
     newbetas = []
-    for i in range(len(ppoly)):
+    for i in range(len(ppoly)+1 ):
+        #print i, dom, np.polyval( ppoly, dom), ppoly        
         newbetas.append( np.polyval( ppoly, dom))
         ppoly = np.polyder(ppoly)
     return newbetas
@@ -323,7 +327,7 @@ def sechfield( p0, width, tvec,mode):
     - width: temporal width in s
     - tvec: time vector
     - mode: can be either 
-            'fwhm'  (full width at half maximum of intensity)
+            'fwhm'  (full width at half maximum of power (field squared))
             or 't0' (argument of sech)  
 
     OUTPUT:
@@ -348,7 +352,7 @@ def gaussfieldA( p0,width, tvec,mode):
     - width: temporal width in s                                                                                    
     - tvec: time vector                                                                                             
     - mode: can be either                                                                                           
-            'fwhm'  (full width at half maximum of intensity)                                                       
+            'fwhm'  (full width at half maximum of power (field squared))                                                       
             or 't0' (argument of exp)          
     OUTPUT:
     - temporal gaussian field (A)                                                                     

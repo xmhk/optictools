@@ -163,7 +163,7 @@ find peaks in a list or an array of value
         - width: temporal width in s
         - tvec: time vector
         - mode: can be either 
-                'fwhm'  (full width at half maximum of intensity)
+                'fwhm'  (full width at half maximum of power (field squared))
                 or 't0' (argument of sech)
         OUTPUT:
         - temporal sech field
@@ -181,7 +181,7 @@ find peaks in a list or an array of value
         - tvec: time vector                                                                                             
         - mode: can be either                                                                                     
     
-                -'fwhm'  (full width at half maximum of intensity)                                                       
+                -'fwhm'  (full width at half maximum of power (field squared))                                                       
                 -or 't0' (argument of exp)          
         OUTPUT:
         - temporal gaussian field (A)
