@@ -141,11 +141,8 @@ find peak positions in a list of values
         OUTPUT:
         - listindices: positions of the peaks found
 
-
-### cfindpeaks(env, liste, threshval)
-find peaks in a list or an array of value
-        
-        this is a python wrapper for the C-lib libfindpeaks (github/xhmk)
+### pyfindpeaks2( environment, list , thresh)
+find peak positions in a list of values
         
         INPUT:
         - environment: (INT) a maxima has to be the local maximum in this environment of points
@@ -153,7 +150,10 @@ find peaks in a list or an array of value
         - thresh: a maximum has to be larger than this value
         
         OUTPUT:
-        - listindices: positions of the peaks found
+        - peak find object: peak indices are in self.peakpos
+        - use self.show() to make a plot for checking
+
+
 
 ### sechfield( p0, width, tvec,mode)
  returns the field of a temporal sech pulse
