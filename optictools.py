@@ -247,6 +247,70 @@ def fwhm3(valuelist, peakpos=-1):
     return width
 
 
+class pyfindpeaks2():   
+    """objectified version of pyfindpeaks. use pfo = pyfindpeaks( environment, valuelist, thresh;
+    peaks are in pfo.peakpos;
+    
+    plot with:
+    plt.figure();pfo.show();plt.show()
+    "
+    
+    
+    def limitss(self, diff,length,pos):
+    #this prevents hitting the borders of the array
+        mi = np.max( [0, pos-diff])
+        ma = np.min( [length, pos+diff])        
+        return mi,ma
+    
+    
+    def __init__(self, environment, valuelist, thresh):
+        half = int( np.floor( environment/2))
+        self.valuelist = valuelist
+        self.thresh = thresh
+        self.valuelistlength = len(valuelist)
+        
+        #pre-filter the peaks above threshold
+        self.abovethresh = np.nonzero( self.valuelist>self.thresh )[0]
+        self.message = "# above thresh : %d"%len(self.abovethresh)
+        i = 0
+        self.peakpos =np.array([],int)  
+        self.milist = []
+        self.malist = []
+        while (i < len(self.abovethresh)):
+            mi,ma = self.limitss(half, self.valuelistlength, self.abovethresh[i])  
+            self.milist.append(mi)
+            self.malist.append(ma)
+            self.message += "\nabove thresh : %d     start = %d   stop=%d"%(i, mi, ma)
+            
+            partialvaluelist = valuelist[mi:ma]
+            # is the valuelist value of the actual position the maximum of the environment?
+            self.message+="\n--\nindex = %d,  value = %f    (max val = %f)"%(
+                        self.abovethresh[i],
+                        self.valuelist[self.abovethresh[i]],
+                        max(partialvaluelist ))
+            if self.valuelist[self.abovethresh[i]] == max(partialvaluelist):
+                self.peakpos=np.append(self.peakpos,self.abovethresh[i])
+                #skip forward to borders
+                #print(self.abovethresh[i], ma)
+                while ( self.abovethresh[i]<ma-2) and (i<len(self.abovethresh)-1):
+                    i+=1
+            #else :               
+            i = i+1
+                
+            #else:
+            #    i = i+1            
+    def show(self):        
+        plt.plot( self.valuelist)
+        plt.axhline(y=self.thresh, dashes = (3,6), color="0.7")
+        for i in range( len(self.milist)):
+            plt.axvspan(self.milist[i],self.malist[i], alpha=0.1, color='blue')
+        plt.plot( self.abovethresh, self.valuelist[self.abovethresh],'s', 
+                 mfc='1.0', label="candidates", ms=8)
+        plt.plot( self.peakpos, self.valuelist[self.peakpos],'o',
+                 mfc='red',label='verified',
+                ms=4)
+        plt.legend(loc=0)    
+    
 
 def pyfindpeaks( environment, valuelist , thresh):
     """
@@ -279,44 +343,42 @@ def pyfindpeaks( environment, valuelist , thresh):
     # is the valuelist value of the actual position the maximum of the environment?
         if valuelist[abovethresh[i]] == max(partialvaluelist):
             peakpos=np.append(peakpos,abovethresh[i])
-            i = i+half-1 #skip the non-maxima
-        else:
-            i = i+1
+        i = i+1        
     return peakpos
 
-def cfindpeaks(env, valuelist, threshval):
-    """
-    find peaks in a list or an array of value
-    
-    this is a python wrapper for the C-lib libfindpeaks (github/xhmk)
-
-    INPUT:
-    - environment: (INT) a maxima has to be the local maximum in this environment of points
-    - valuelist: list or array of points to find the maxima in
-    - thresh: a maximum has to be larger than this value
-
-    OUTPUT:
-    - listindices: positions of the peaks found
-    """
-    libfp = ctypes.cdll.LoadLibrary("libfindpeaks.so")
-    c_valuelist = (ctypes.c_double * len(valuelist))()
-    c_peakposes  = (ctypes.c_long * len(valuelist))()
-    c_listlength = ctypes.c_long()
-    c_peaknumber = ctypes.c_long()
-    c_env   = ctypes.c_long()
-    c_valuelist[:] = valuelist[:]
-    c_listlength = len(valuelist)
-    c_env = env
-    c_threshval = (ctypes.c_double  *1)()
-    c_threshval[0] = threshval
-    libfp.findpeaks(c_env, 
-                     c_listlength,
-                     ctypes.pointer(c_valuelist), 
-                     ctypes.pointer(c_peakposes),
-                     ctypes.pointer(c_peaknumber),
-                     c_threshval)
-    pindx = np.array(c_peakposes[0:c_peaknumber.value])
-    return pindx
+#def cfindpeaks(env, valuelist, threshval):
+#    """
+#    find peaks in a list or an array of value
+#    
+#    this is a python wrapper for the C-lib libfindpeaks (github/xhmk)
+#
+#   INPUT:
+#    - environment: (INT) a maxima has to be the local maximum in this environment of points
+#    - valuelist: list or array of points to find the maxima in
+#    - thresh: a maximum has to be larger than this value
+#
+#    OUTPUT:
+#    - listindices: positions of the peaks found
+#    """
+#    libfp = ctypes.cdll.LoadLibrary("libfindpeaks.so")
+#    c_valuelist = (ctypes.c_double * len(valuelist))()
+#    c_peakposes  = (ctypes.c_long * len(valuelist))()
+#    c_listlength = ctypes.c_long()
+#    c_peaknumber = ctypes.c_long()
+#    c_env   = ctypes.c_long()
+#    c_valuelist[:] = valuelist[:]
+#    c_listlength = len(valuelist)
+#    c_env = env
+#    c_threshval = (ctypes.c_double  *1)()
+#    c_threshval[0] = threshval
+#    libfp.findpeaks(c_env, 
+#                     c_listlength,
+#                     ctypes.pointer(c_valuelist), 
+#                     ctypes.pointer(c_peakposes),
+#                     ctypes.pointer(c_peaknumber),
+#                     c_threshval)
+#    pindx = np.array(c_peakposes[0:c_peaknumber.value])
+#    return pindx
 
 
 def sechfield( p0, width, tvec,mode):
