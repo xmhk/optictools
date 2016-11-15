@@ -253,7 +253,7 @@ class pyfindpeaks2():
     
     plot with:
     plt.figure();pfo.show();plt.show()
-    "
+    """
     
     
     def limitss(self, diff,length,pos):
@@ -404,6 +404,20 @@ def sechfield( p0, width, tvec,mode):
         t0 = 0
     return np.sqrt(p0) * 1/np.cosh( tvec / t0)
 
+def N2sol(t,z,b2,gamma, t0):
+    """
+    complete field for the N=2 soliton
+    """
+    p01 = np.abs(b2) / gamma / t0**2
+    ld = t0**2 / np.abs(b2)  
+    return np.sqrt(p01) * 4 * (np.cosh(3*t/t0) + 3 * np.exp(1.0j * 4 * z/ld ) * np.cosh(t/t0)) / (np.cosh(4*t/t0)+4*np.cosh(2*t/t0)+ 3*np.cos(4*z/ld)) * np.exp( 1.0j * z/ld /2.)  
+    
+def N2solnorm( t, z ): 
+    """
+    analytical field for an N=2-Soliton. z0 in this units is pi/2 
+    """
+    return 4 * (np.cosh(3*t) + 3 * np.exp(1.0j * 4 * z ) * np.cosh(t)) / (np.cosh(4*t)+4*np.cosh(2*t)+ 3*np.cos(4*z)) * np.exp( 1.0j * z /2.)    
+    
 def gaussfieldA( p0,width, tvec,mode):
     """ 
     returns the field of a gaussian pulse (A)
